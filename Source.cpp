@@ -19,27 +19,27 @@ int main()
 {
 	setlocale(0, "");
 
-	Point3D p(1, 1, 1);
+	/*Point3D p(1, 1, 1);
 	Vector3D v(2, 4, -1);
 
 	cout << p << endl;
 
 	p.moveByVector(v);
-	cout << p << endl;
+	cout << p << endl;*/
 
 
 	/*MyString s = "Hello";
 	cout << s << endl;*/
 
-	//Temperature t(36);
-	//Humidity h(30);
+	Temperature t(36);
+	Humidity h(30);
 
 	/*cout << "Weather now: " << endl;
 	cout << "----------------" << endl;
 	t.print();
 	h.print();*/
 
-	//weatherNow(t, h);
+	weatherNow(t, h);
 
 	
 
@@ -50,8 +50,8 @@ int main()
 	//p.print(3);
 	//cout << p[1] << endl;
 
-	//Time t(10);
-	/*Time t1 = 3 * t;
+	/*Time t(10);
+	Time t1 = 3 * t;
 	cout << t1 << endl;*/
 	/*Time t1;
 	cin >> t1;

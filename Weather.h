@@ -46,5 +46,6 @@ void weatherNow(Temperature t, Humidity h)
 	cout << "----------------" << endl;
 	cout << "Temperature - " << t.temp << (char)248 << "C" << endl;
 	cout << "Humidity - " << h.humidity << "%" << endl;
+	cout << endl;
 	setlocale(0, "");
 }
