@@ -8,6 +8,7 @@
 #include"Time.h"
 #include"Progress.h"
 #include"Weather.h"
+#include"3D.h"
 
 using namespace std;
 
@@ -17,6 +18,18 @@ using namespace std;
 int main()
 {
 	setlocale(0, "");
+
+	Point3D p(1, 1, 1);
+	Vector3D v(2, 4, -1);
+
+	cout << p << endl;
+
+	p.moveByVector(v);
+	cout << p << endl;
+
+
+	/*MyString s = "Hello";
+	cout << s << endl;*/
 
 	//Temperature t(36);
 	//Humidity h(30);
@@ -28,6 +41,7 @@ int main()
 
 	//weatherNow(t, h);
 
+	
 
 	//Progress p1(2, -3);
 	//Progress p2(3, 3);
@@ -36,15 +50,20 @@ int main()
 	//p.print(3);
 	//cout << p[1] << endl;
 
-	/*Time t(10);
-	Time t1 = 3 * t;
+	//Time t(10);
+	/*Time t1 = 3 * t;
 	cout << t1 << endl;*/
+	/*Time t1;
+	cin >> t1;
+	Time t2;
+	t2 = t1 + t;
+	cout << t2 << endl;*/
 
-	Array1D a(3);
+	/*Array1D a(3);
 	a.add(3);
 	a.add(5);
 	a.add(8);
-	cout << a << endl;
+	cout << a << endl;*/
 
 	/*Time t(10);
 	Time t1 = ++t - ++t;

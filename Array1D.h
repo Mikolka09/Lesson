@@ -14,7 +14,10 @@ public:
 	Array1D(int size);
 	Array1D(const Array1D& array);
 	~Array1D();
+
 	friend ostream& operator<<(ostream &out, Array1D a);
+	friend istream& operator>>(istream &in, Array1D &a);
+
 	void print();
 	void add(int elem);
 	void resize(int delta);
@@ -36,10 +39,20 @@ ostream& operator<<(ostream &out, Array1D a)
 		{
 			out << a.arr[i] << " ";
 		}
-		out << endl;
 	}
 	else out << "массив пуст" << endl;
 	return out;
+}
+
+istream& operator>>(istream &in, Array1D &a)
+{
+	int value;
+	do
+	{
+		in >> value;
+		a.add(value);
+	} while (cin.peek() != '\n');
+	return in;
 }
 
 Array1D::Array1D(int size)
@@ -202,3 +215,10 @@ inline int Array1D::operator[](int i)
 
 //cout << "всего - " << arr1.getSize() << endl;
 //cout << "заполнено - " << arr1.getsizeFull() << endl;
+
+/*Array1D a(3);
+cin >> a;
+cout << a << endl;
+
+cout << a.getSize() << endl;
+cout << a.getsizeFull() << endl;*/

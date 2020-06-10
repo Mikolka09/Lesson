@@ -46,4 +46,11 @@ public:
 		return this->str;
 	}
 
+	friend ostream& operator<<(ostream &out, MyString s);
 };
+
+ostream& operator<<(ostream &out, MyString s)
+{
+	out << s.str;
+	return out;
+}

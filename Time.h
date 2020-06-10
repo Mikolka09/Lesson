@@ -29,7 +29,8 @@ public:
 	bool operator!= (Time t2);
 	void operator() (Time t, int f);//перегрузка вывода времени с укзанием формата
 
-	friend ostream& operator<< (ostream &out, Time t);
+	friend ostream& operator<< (ostream &out, const Time t);
+	friend istream& operator>> (istream &in, Time &t);
 
 	void printTo12() const;
 	void printTo24() const;
@@ -37,7 +38,7 @@ public:
 	~Time();
 };
 
-ostream& operator<< (ostream &out, Time t)
+ostream& operator<< (ostream &out, const Time t)
 {
 	int temp, sek, min, hou;
 	temp = t.s + t.m * 60 + t.h * 3600;
@@ -59,6 +60,13 @@ ostream& operator<< (ostream &out, Time t)
 	sek < 10 ? out << "0" << sek : out << sek << endl;
 	out << endl;
 	return out;
+}
+
+istream& operator>> (istream &in, Time &t)
+{
+	cout << "Enter h, m, s: ";
+	in >> t.h >> t.m >> t.s;
+	return in;
 }
 
 Time::Time()
