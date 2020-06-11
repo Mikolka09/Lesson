@@ -4,34 +4,36 @@
 
 using namespace std;
 
+template<class T>
 class Array1D
 {
 	int size = 0; //размер массива
 	int sizeFull = 0;//кол-во заполненных элементов
-	int* arr = nullptr;
+	T* arr = nullptr;
 
 public:
 	Array1D(int size);
 	Array1D(const Array1D& array);
 	~Array1D();
 
-	friend ostream& operator<<(ostream &out, Array1D a);
-	friend istream& operator>>(istream &in, Array1D &a);
+	friend ostream& operator<< <T>(ostream &out, const Array1D<T> &a);//Такой синтексис только для дружествееных методов
+    friend istream& operator>> <T>(istream &in, const Array1D<T> &a);
 
 	void print();
-	void add(int elem);
+	void add(T elem);
 	void resize(int delta);
 	int getSize();
 	int getsizeFull();
-	void insert(int elem, int pos);
+	void insert(T elem, int pos);
 	void erase();
 	void delPos(int pos);
-	void getElem(int pos, int& elem, bool& error);
+	void getElem(int pos, T& elem, bool& error);
 	void printElem(int pos);
-	int operator[](int i);
+	T operator[](int i);
 };
 
-ostream& operator<<(ostream &out, Array1D a)
+template<class T>
+ostream& operator<<(ostream &out, const Array1D<T> &a)//Такой синтексис только для дружествееных методов
 {
 	if (a.sizeFull)
 	{
@@ -44,7 +46,8 @@ ostream& operator<<(ostream &out, Array1D a)
 	return out;
 }
 
-istream& operator>>(istream &in, Array1D &a)
+template<class T>
+istream& operator>>(istream &in, const Array1D<T> &a)
 {
 	int value;
 	do
@@ -55,30 +58,33 @@ istream& operator>>(istream &in, Array1D &a)
 	return in;
 }
 
-Array1D::Array1D(int size)
+template<class T>
+Array1D<T>::Array1D(int size)
 {
 	if (size > 0)
 		this->size = size;
-	arr = new int[this->size];
+	arr = new T[this->size];
 	if (!arr)
 		exit(0);
 }
 
-inline Array1D::Array1D(const Array1D& array)
+template<class T>
+inline Array1D<T>::Array1D(const Array1D& array)
 {
 	size = array.size;
 	sizeFull = array.sizeFull;
-	arr = new int[this->size];
-	memcpy(arr, array.arr, array.size * sizeof(int));
+	arr = new T[this->size];
+	memcpy(arr, array.arr, array.size * sizeof(T));
 }
 
-
-Array1D::~Array1D()
+template<class T>
+Array1D<T>::~Array1D()
 {
 	delete[]this->arr;
 }
 
-inline void Array1D::print()
+template<class T>
+inline void Array1D<T>::print()
 {
 	if (this->sizeFull)
 	{
@@ -91,7 +97,8 @@ inline void Array1D::print()
 	else cout << "массив пуст" << endl;
 }
 
-inline void Array1D::add(int elem)
+template<class T>
+inline void Array1D<T>::add(T elem)
 {
 	if (this->sizeFull == this->size)
 		resize(1);
@@ -100,29 +107,33 @@ inline void Array1D::add(int elem)
 	this->sizeFull++;
 }
 
-inline void Array1D::resize(int delta)
+template<class T>
+inline void Array1D<T>::resize(int delta)
 {
 	if ((delta < 0 && this->size - this->sizeFull >= abs(delta)) || delta >= 0)
 	{
-		int* newarr = new int[this->size + delta];
-		memcpy(newarr, this->arr, this->sizeFull * sizeof(int));
+		T* newarr = new T[this->size + delta];
+		memcpy(newarr, this->arr, this->sizeFull * sizeof(T));
 		delete[]this->arr;
 		this->arr = newarr;
 		this->size += delta;
 	}
 }
 
-inline int Array1D::getSize()
+template<class T>
+inline int Array1D<T>::getSize()
 {
 	return this->size;
 }
 
-inline int Array1D::getsizeFull()
+template<class T>
+inline int Array1D<T>::getsizeFull()
 {
 	return this->sizeFull;
 }
 
-inline void Array1D::insert(int elem, int pos)
+template<class T>
+inline void Array1D<T>::insert(T elem, int pos)
 {
 	if (pos > this->sizeFull - 1)
 	{
@@ -132,29 +143,31 @@ inline void Array1D::insert(int elem, int pos)
 	{
 		if (this->sizeFull == this->size)
 			resize(1);
-		memcpy(arr + pos + 1, arr + pos, (sizeFull - pos) * sizeof(int));
+		memcpy(arr + pos + 1, arr + pos, (sizeFull - pos) * sizeof(T));
 		arr[pos] = elem;
 		this->sizeFull++;
 	}
 }
 
-inline void Array1D::erase()
+template<class T>
+inline void Array1D<T>::erase()
 {
 	if (sizeFull)
 	{
-		int* newarr = new int[this->size];
+		T* newarr = new T[this->size];
 		delete[]this->arr;
 		this->arr = newarr;
 		this->sizeFull = 0;
 	}
 }
 
-inline void Array1D::delPos(int pos)
+template<class T>
+inline void Array1D<T>::delPos(int pos)
 {
 	if (pos >= 0 && pos <= sizeFull)
 	{
-		int* newarr = new int[this->size - 1];
-		memcpy(newarr, this->arr, pos * sizeof(int));
+		T* newarr = new T[this->size - 1];
+		memcpy(newarr, this->arr, pos * sizeof(T));
 		//memcpy(newarr+pos, this->arr+pos+1, (this->sizeFull-pos-1) * sizeof(int));
 		for (size_t i = pos + 1; i < sizeFull; i++)
 			newarr[i - 1] = this->arr[i];
@@ -166,7 +179,8 @@ inline void Array1D::delPos(int pos)
 
 }
 
-inline void Array1D::getElem(int pos, int& elem, bool& error)
+template<class T>
+inline void Array1D<T>::getElem(int pos, T& elem, bool& error)
 {
 	if (pos >= 0 && pos <= sizeFull)
 	{
@@ -176,17 +190,21 @@ inline void Array1D::getElem(int pos, int& elem, bool& error)
 	else error = true;
 }
 
-inline void Array1D::printElem(int pos)
+template<class T>
+inline void Array1D<T>::printElem(int pos)
 {
 	if (pos >= 0 && pos <= sizeFull)
 		cout << this->arr[pos] << endl;
 	else cout << "Элемент с таким номером не найден" << endl;
 }
 
-inline int Array1D::operator[](int i)
+template<class T>
+inline T Array1D<T>::operator[](int i)
 {
 	return arr[i];
 }
+
+
 
 
 

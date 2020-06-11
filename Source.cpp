@@ -9,6 +9,8 @@
 #include"Progress.h"
 #include"Weather.h"
 #include"_3D.h"
+#include"Array2D.h"
+#include"StaticArray.h"
 
 using namespace std;
 
@@ -19,27 +21,74 @@ int main()
 {
 	setlocale(0, "");
 
+	/*StaticArray<double, 5> a;
+	a[0] = 2.3;
+	a[1] = 9.5;
+	a.print();*/
+	//int f;
+
+
+	Array2D<Time> a(2, 2);
+	a[0][0] = Time(1, 2, 5);
+	a[0][1] = Time(1, 2, 5);
+	a[1][0] = Time(1, 2, 5);
+	a[1][1] = Time(1, 2, 5);
+	a.print();
+
+	//cout << a << endl;
+	//cout << a[1][1] << endl;
+	//a[1][1] = 10;
+	//cout << a << endl;
+	/*cin >> a;
+	cout << a << endl;
+	cin >> f;
+	cout << f << endl;*/
+
+	/*Array1D<int> arr1(3);
+	arr1.add(5);
+	arr1.add(3);
+	arr1.add(9);
+	arr1.print();
+	cout << arr1[2] << endl;
+	cout << "всего - " << arr1.getSize() << endl;
+	cout << "заполнено - " << arr1.getsizeFull() << endl;
+
+	Array1D<double> arr2(4);
+	arr2.add(2.56);
+	arr2.add(6.58);
+	arr2.add(3.38);
+	arr2.print();
+	cout << "всего - " << arr2.getSize() << endl;
+	cout << "заполнено - " << arr2.getsizeFull() << endl;*/
+
+	/*Array1D a(3);
+	cin >> a;
+	cout << a << endl;
+
+	cout << a.getSize() << endl;
+	cout << a.getsizeFull() << endl;*/
+
 	/*Point3D p(1, 1, 1);
 	Vector3D v(2, 4, -1);
 
 	cout << p << endl;
 
 	p.moveByVector(v);
-	cout << p << endl;*/
-
+	cout << p << endl;
+*/
 
 	/*MyString s = "Hello";
 	cout << s << endl;*/
 
-	Temperature t(36);
-	Humidity h(30);
+	//Temperature t(36);
+	//Humidity h(30);
 
 	/*cout << "Weather now: " << endl;
 	cout << "----------------" << endl;
 	t.print();
 	h.print();*/
 
-	weatherNow(t, h);
+	//weatherNow(t, h);
 
 	
 
@@ -50,8 +99,8 @@ int main()
 	//p.print(3);
 	//cout << p[1] << endl;
 
-	/*Time t(10);
-	Time t1 = 3 * t;
+	//Time t(10);
+	/*Time t1 = 3 * t;
 	cout << t1 << endl;*/
 	/*Time t1;
 	cin >> t1;
