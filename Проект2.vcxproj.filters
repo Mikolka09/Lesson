@@ -18,6 +18,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Заголовочные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Array1D.inl">
+      <Filter>Заголовочные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Apple.h">

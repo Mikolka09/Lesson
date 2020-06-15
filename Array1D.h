@@ -198,11 +198,7 @@ inline void Array1D<T>::printElem(int pos)
 	else cout << "Элемент с таким номером не найден" << endl;
 }
 
-template<class T>
-inline T Array1D<T>::operator[](int i)
-{
-	return arr[i];
-}
+#include"Array1D.inl"
 
 
 

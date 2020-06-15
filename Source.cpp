@@ -28,12 +28,12 @@ int main()
 	//int f;
 
 
-	Array2D<Time> a(2, 2);
+	/*Array2D<Time> a(2, 2);
 	a[0][0] = Time(1, 2, 5);
 	a[0][1] = Time(1, 2, 5);
 	a[1][0] = Time(1, 2, 5);
 	a[1][1] = Time(1, 2, 5);
-	a.print();
+	a.print();*/
 
 	//cout << a << endl;
 	//cout << a[1][1] << endl;
@@ -44,7 +44,7 @@ int main()
 	cin >> f;
 	cout << f << endl;*/
 
-	/*Array1D<int> arr1(3);
+	Array1D<int> arr1(3);
 	arr1.add(5);
 	arr1.add(3);
 	arr1.add(9);
@@ -53,7 +53,7 @@ int main()
 	cout << "всего - " << arr1.getSize() << endl;
 	cout << "заполнено - " << arr1.getsizeFull() << endl;
 
-	Array1D<double> arr2(4);
+	/*Array1D<double> arr2(4);
 	arr2.add(2.56);
 	arr2.add(6.58);
 	arr2.add(3.38);
