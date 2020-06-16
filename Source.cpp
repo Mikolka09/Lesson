@@ -24,6 +24,7 @@ int main()
 	setlocale(0, "");
 
 
+
 	DynamicStack<int, 15> st;
 	for (size_t i = 0; i < 10; i++)
 	{
