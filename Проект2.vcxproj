@@ -118,11 +118,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Array1D.inl" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
+    <ClInclude Include="MyData.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="_3D.h" />
     <ClInclude Include="A.h" />

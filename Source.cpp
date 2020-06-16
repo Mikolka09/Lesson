@@ -11,6 +11,8 @@
 #include"_3D.h"
 #include"Array2D.h"
 #include"StaticArray.h"
+#include"Stack.h"
+
 
 using namespace std;
 
@@ -20,6 +22,20 @@ using namespace std;
 int main()
 {
 	setlocale(0, "");
+
+
+	DynamicStack<int, 15> st;
+	for (size_t i = 0; i < 10; i++)
+	{
+		int a;
+		cin >> a;
+		st.push(a);
+	}
+	st.print();
+
+
+
+
 
 	/*StaticArray<double, 5> a;
 	a[0] = 2.3;
@@ -44,14 +60,14 @@ int main()
 	cin >> f;
 	cout << f << endl;*/
 
-	Array1D<int> arr1(3);
+	/*Array1D<int> arr1(3);
 	arr1.add(5);
 	arr1.add(3);
 	arr1.add(9);
 	arr1.print();
 	cout << arr1[2] << endl;
 	cout << "всего - " << arr1.getSize() << endl;
-	cout << "заполнено - " << arr1.getsizeFull() << endl;
+	cout << "заполнено - " << arr1.getsizeFull() << endl;*/
 
 	/*Array1D<double> arr2(4);
 	arr2.add(2.56);
