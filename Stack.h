@@ -92,6 +92,7 @@ public:
 	bool isFull();//проверка на полноту
 	void clear();//очистка стека
 	void print();//печать стека
+	~DynamicStack();
 
 
 
@@ -147,6 +148,12 @@ inline void DynamicStack<T, size>::print()
 	}
 	cout << endl;
 
+}
+
+template<class T, int size>
+inline DynamicStack<T, size>::~DynamicStack()
+{
+	clear();
 }
 
 template<class T, int size>
