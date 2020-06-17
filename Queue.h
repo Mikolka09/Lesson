@@ -1,8 +1,8 @@
-#pragma once
+п»ї#pragma once
 #include"MyData.h"
 
 template<class T, int size>
-class Queue //простая очередь
+class Queue //РїСЂРѕСЃС‚Р°СЏ РѕС‡РµСЂРµРґСЊ
 {
 private:
 	MyData<T> *first = nullptr;
@@ -122,7 +122,7 @@ inline void Queue<T, size>::clear()
 ///////////////////////////////////////////////////////////
 
 template<class T, int size>
-class RingQueue//циклическая очередь
+class RingQueue//С†РёРєР»РёС‡РµСЃРєР°СЏ РѕС‡РµСЂРµРґСЊ
 {
 private:
 	MyData<T> *first = nullptr;
