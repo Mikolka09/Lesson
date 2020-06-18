@@ -11,7 +11,7 @@ public:
 	void push(T val);//добавление в стек (положить)
 	T pop(); //удаление из стека (удалить)
 	int getSize();//количество элементов
-	T pick();//смотреть кто на вершине (последний)
+	T peek();//смотреть кто на вершине (последний)
 	bool isEmpty();//проверка на пустоту
 	bool isFull();//проверка на полноту
 	void clear();//очистка стека
@@ -41,7 +41,7 @@ inline int StaticStack<T, size>::getSize()
 }
 
 template<class T, int size>
-inline T StaticStack<T, size>::pick()
+inline T StaticStack<T, size>::peek()
 {
 	return data[top - 1].value;
 }
@@ -87,7 +87,7 @@ public:
 	void push(T val);//добавление в стек (положить)
 	T pop(); //удаление из стека (удалить)
 	int getSize();//количество элементов
-	T pick();//смотреть кто на вершине (последний)
+	T peek();//смотреть кто на вершине (последний)
 	bool isEmpty();//проверка на пустоту
 	bool isFull();//проверка на полноту
 	void clear();//очистка стека
@@ -157,9 +157,11 @@ inline DynamicStack<T, size>::~DynamicStack()
 }
 
 template<class T, int size>
-inline T DynamicStack<T, size>::pick()
+inline T DynamicStack<T, size>::peek()
 {
-	return data->value;
+	if (top > 0)
+		return data->value;
+	return 0;
 }
 
 template<class T, int size>

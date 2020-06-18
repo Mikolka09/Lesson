@@ -11,10 +11,11 @@
 #include"Progress.h"
 #include"Weather.h"
 #include"_3D.h"
-#include"Array2D.h"
+//#include"Array2D.h"
 #include"StaticArray.h"
 #include"Stack.h"
 #include"Queue.h"
+#include"List.h"
 
 
 using namespace std;
@@ -26,7 +27,26 @@ int main()
 {
 	//setlocale(0, "");
 
-	PrioretyQueue<int, 10> q;
+	List<int, 10> list;
+	list.push_front(5);
+	list.push_front(15);
+	list.push_front(25);
+	list.print();
+	list.push_back(40);
+	list.push_back(50);
+	list.print();
+	list.push_at(100, 3);
+	list.print();
+	list.pop_front();
+	list.print();
+	list.pop_back();
+	list.print();
+	//list.pop_at(2);
+	//list.print();
+	cout << list[25] << endl;
+	//list.print();
+
+	/*PrioretyQueue<int, 10> q;
 	q.push(5, HIGH);
 	q.push(10, LOW);
 	q.push(15, MEDIUM);
@@ -34,7 +54,7 @@ int main()
 	q.push(17, HIGH);
 	q.push(16, MEDIUM);
 	q.push(60, MEDIUM);
-	q.print();
+	q.print();*/
 	
 
 	/*while (!_kbhit())

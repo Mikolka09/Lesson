@@ -15,7 +15,7 @@ public:
 	int getSize();
 	bool ifEmpty();
 	bool isFull();
-	T pick();
+	T peek();
 	void print();
 	void clear();
 
@@ -85,7 +85,7 @@ inline bool Queue<T, size>::isFull()
 }
 
 template<class T, int size>
-inline T Queue<T, size>::pick()
+inline T Queue<T, size>::peek()
 {
 	return first->value;
 }
@@ -136,7 +136,7 @@ public:
 	int getSize();
 	bool isEmpty();
 	bool isFull();
-	T pick();
+	T peek();
 	void print();
 	void clear();
 
@@ -180,7 +180,7 @@ inline void RingQueue<T, size>::pop()
 }
 
 template<class T, int size>
-inline T RingQueue<T, size>::pick()
+inline T RingQueue<T, size>::peek()
 {
 	return first->value;
 }
@@ -249,7 +249,7 @@ public:
 	int getSize();
 	bool isEmpty();
 	bool isFull();
-	T pick();
+	T peek();
 	void print();
 	void clear();
 };
