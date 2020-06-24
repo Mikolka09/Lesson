@@ -16,6 +16,7 @@
 #include"Stack.h"
 #include"Queue.h"
 #include"List.h"
+#include"BTree.h"
 
 
 using namespace std;
@@ -27,7 +28,30 @@ int main()
 {
 	//setlocale(0, "");
 
-	List<int, 10> list;
+
+	BTree<int, int> tr;
+	tr.push(35, 35);
+	tr.push(15, 15);
+	tr.push(25, 25);
+	tr.push(65, 65);
+	tr.push(5, 10);
+	tr.push(0, 0);
+	tr.print();
+
+
+
+	/*ForwardList<int, 5> l;
+	l.push_front(5);
+	l.push_front(15);
+	l.push_front(25);
+	l.push_back(35);
+	l.print();
+	l.pop_at(2);
+	l.print();
+	l.print_reverse();*/
+
+
+	/*List<int, 10> list;
 	list.push_front(5);
 	list.push_front(15);
 	list.push_front(25);
@@ -40,10 +64,10 @@ int main()
 	list.pop_front();
 	list.print();
 	list.pop_back();
-	list.print();
+	list.print();*/
 	//list.pop_at(2);
 	//list.print();
-	cout << list[25] << endl;
+	//cout << list[25] << endl;
 	//list.print();
 
 	/*PrioretyQueue<int, 10> q;
