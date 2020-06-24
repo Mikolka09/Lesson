@@ -1,5 +1,14 @@
 ﻿#pragma once
 #include"MyData.h"
+#include<Windows.h>
+
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 
 template<class T, int size>
 class List
@@ -185,6 +194,51 @@ inline T List<T, size>::operator[](int pos)
 }
 
 template<class T, int size>
+inline T List<T, size>::peek_front()
+{
+	return first->value;
+}
+
+template<class T, int size>
+inline T List<T, size>::peek_back()
+{
+	return last->value;
+}
+
+template<class T, int size>
+inline T List<T, size>::peek_at(int pos)
+{
+	if (pos >= 0 && pos < length)
+	{
+		MyData<T>* temp = first;
+		for (size_t i = 0; i < pos; i++)
+		{
+			temp = temp->next;
+		}
+		return temp->value;
+	}
+	return last->value;
+}
+
+template<class T, int size>
+inline int List<T, size>::getSize()
+{
+	return length;
+}
+
+template<class T, int size>
+inline bool List<T, size>::ifEmpty()
+{
+	return length == 0;
+}
+
+template<class T, int size>
+inline bool List<T, size>::isFull()
+{
+	return length == size;
+}
+
+template<class T, int size>
 inline void List<T, size>::print()
 {
 	if (length == 0)
@@ -199,6 +253,20 @@ inline void List<T, size>::print()
 		temp = temp->next;
 	}
 	cout << endl;
+}
+
+template<class T, int size>
+inline void List<T, size>::print(int x, int y)
+{
+	int y1 = y;
+	gotoxy(x, y1);
+	int begin = (length < 10) ? 0 : length - 10;
+	for (size_t i = begin; i < length; i++)
+	{
+		gotoxy(x, y1);
+		cout << this->operator[](i);
+		y1++;
+	}
 }
 
 template<class T, int size>
@@ -453,4 +521,15 @@ inline void ForwardList<T, size>::print_reverse()
 		temp = temp->prev;
 	}
 	cout << endl;
+}
+
+template<class T, int size>
+inline void ForwardList<T, size>::clear()
+{
+	while (length)
+	{
+		pop_front();
+	}
+	first = last = nullptr;
+	cout << "List cleared!" << endl;
 }

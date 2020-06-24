@@ -126,6 +126,7 @@
     <ClInclude Include="List.h" />
     <ClInclude Include="MyData.h" />
     <ClInclude Include="PiggyBank.h" />
+    <ClInclude Include="PrintServer.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StaticArray.h" />

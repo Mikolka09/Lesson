@@ -17,6 +17,7 @@
 #include"Queue.h"
 #include"List.h"
 #include"BTree.h"
+#include"PrintServer.h"
 
 
 using namespace std;
@@ -29,14 +30,14 @@ int main()
 	//setlocale(0, "");
 
 
-	BTree<int, int> tr;
+	/*BTree<int, int> tr;
 	tr.push(35, 35);
 	tr.push(15, 15);
 	tr.push(25, 25);
 	tr.push(65, 65);
 	tr.push(5, 10);
 	tr.push(0, 0);
-	tr.print();
+	tr.print();*/
 
 
 
@@ -51,20 +52,17 @@ int main()
 	l.print_reverse();*/
 
 
-	/*List<int, 10> list;
-	list.push_front(5);
-	list.push_front(15);
-	list.push_front(25);
-	list.print();
+	//List<int, 10> list;
+	//list.push_front(5);
+	//list.push_front(15);
+	//list.push_front(25);
+	/*list.print();
 	list.push_back(40);
-	list.push_back(50);
-	list.print();
-	list.push_at(100, 3);
-	list.print();
-	list.pop_front();
-	list.print();
-	list.pop_back();
-	list.print();*/
+	list.push_back(50);*/
+	//cout << endl;
+	//int at = list.peek_at(2);
+	//cout << at << endl;
+	//list.print();
 	//list.pop_at(2);
 	//list.print();
 	//cout << list[25] << endl;
