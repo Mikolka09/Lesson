@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include<string>
 #include<iostream>
 #include"List.h"
@@ -8,11 +8,11 @@ using namespace std;
 
 class Protocol
 {
-	string numTS;//номер транспортного средства
-	string date;//дата нарушения
-	string numPPN;//номер правил правонарушения
-	string tag;//пояснение
-	float sum;//сумма штрафа
+	string numTS;//РЅРѕРјРµСЂ С‚СЂР°РЅСЃРїРѕСЂС‚РЅРѕРіРѕ СЃСЂРµРґСЃС‚РІР°
+	string date;//РґР°С‚Р° РЅР°СЂСѓС€РµРЅРёСЏ
+	string numPPN;//РЅРѕРјРµСЂ РїСЂР°РІРёР» РїСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёСЏ
+	string tag;//РїРѕСЏСЃРЅРµРЅРёРµ
+	float sum;//СЃСѓРјРјР° С€С‚СЂР°С„Р°
 
 public:
 	Protocol(){}
@@ -44,19 +44,19 @@ ostream& operator<<(ostream &out, const Protocol *p)
 
 istream& operator>>(istream &in, Protocol *p)
 {
-	cout << "Номер ТС: ";   getline(in, p->numTS);
-	cout << "Дата: ";       getline(in, p->date);
-	cout << "Пункт ПН: ";   getline(in, p->numPPN);
-	cout << "Коментарий: ";	getline(in, p->tag);
-	cout << "Сумма: ";      in >> p->sum;
+	cout << "РќРѕРјРµСЂ РўРЎ: ";   getline(in, p->numTS);
+	cout << "Р”Р°С‚Р°: ";       getline(in, p->date);
+	cout << "РџСѓРЅРєС‚ РџРќ: ";   getline(in, p->numPPN);
+	cout << "РљРѕРјРµРЅС‚Р°СЂРёР№: ";	getline(in, p->tag);
+	cout << "РЎСѓРјРјР°: ";      in >> p->sum;
 	return in;
 }
 
 
 class BasePDR
 {
-	List<Protocol*, 100> protocols;//список протоколов
-	BTree<string, List<Protocol*, 100>> baseTS;//база транспортных средств
+	List<Protocol*, 100> protocols;//СЃРїРёСЃРѕРє РїСЂРѕС‚РѕРєРѕР»РѕРІ
+	BTree<string, List<Protocol*, 100>> baseTS;//Р±Р°Р·Р° С‚СЂР°РЅСЃРїРѕСЂС‚РЅС‹С… СЃСЂРµРґСЃС‚РІ
 
 public:
 	void menu();
@@ -67,16 +67,15 @@ public:
 
 void BasePDR::menu()
 {
-	setlocale(0, "");
 	do
 	{
 		system("cls");
-		cout << "БАЗА ШТРАФОВ ПДР" << endl;
+		cout << "Р‘РђР—Рђ РЁРўР РђР¤РћР’ РџР”Р " << endl;
 		cout << "----------------" << endl;
-		cout << "1. Добавить протокол" << endl;
-		cout << "2. Поиcк ТС" << endl;
-		cout << "3. Печать" << endl;
-		cout << "4. Выход" << endl;
+		cout << "1. Р”РѕР±Р°РІРёС‚СЊ РїСЂРѕС‚РѕРєРѕР»" << endl;
+		cout << "2. РџРѕРёcРє РўРЎ" << endl;
+		cout << "3. РџРµС‡Р°С‚СЊ" << endl;
+		cout << "4. Р’С‹С…РѕРґ" << endl;
 		int n;
 		cin >> n;
 		cin.ignore();
@@ -103,7 +102,7 @@ void BasePDR::menu()
 inline void BasePDR::push_protocol()
 {
 	system("cls");
-	cout << "Новый протокол" << endl;
+	cout << "РќРѕРІС‹Р№ РїСЂРѕС‚РѕРєРѕР»" << endl;
 	cout << "--------------------------------" << endl;
 	Protocol *prot = new Protocol;
 	cin >> prot;
@@ -111,7 +110,7 @@ inline void BasePDR::push_protocol()
 	List<Protocol*, 100>* list_TS = baseTS.get(prot->getNumTS());
 	if (!list_TS)
 	{
-		cout << "Данный номер ТС не найден в базе и будет добавлен!" << endl;
+		cout << "Р”Р°РЅРЅС‹Р№ РЅРѕРјРµСЂ РўРЎ РЅРµ РЅР°Р№РґРµРЅ РІ Р±Р°Р·Рµ Рё Р±СѓРґРµС‚ РґРѕР±Р°РІР»РµРЅ!" << endl;
 		List<Protocol*, 100> newList_TS;
 		newList_TS.push_back(prot);
 		baseTS.push(prot->getNumTS(), newList_TS);
@@ -119,7 +118,7 @@ inline void BasePDR::push_protocol()
 	else
 	{
 		list_TS->push_back(prot);
-		cout << "Список ПН по данному ТС обновлен!" << endl;
+		cout << "РЎРїРёСЃРѕРє РџРќ РїРѕ РґР°РЅРЅРѕРјСѓ РўРЎ РѕР±РЅРѕРІР»РµРЅ!" << endl;
 	}
 
 }
@@ -127,7 +126,7 @@ inline void BasePDR::push_protocol()
 inline void BasePDR::print()
 {
 	system("cls");
-	cout << "База ПН по ТС" << endl;
+	cout << "Р‘Р°Р·Р° РџРќ РїРѕ РўРЎ" << endl;
 	cout << "--------------------------------" << endl;
 	baseTS.print();
 	system("pause");
@@ -137,11 +136,11 @@ inline void BasePDR::find()
 {
 	system("cls");
 	string num;
-	cout << "Номер ТС: ";   getline(cin, num);
+	cout << "РќРѕРјРµСЂ РўРЎ: ";   getline(cin, num);
 	List<Protocol*, 100> *list_TS = baseTS.get(num);
 	if (!list_TS)
 	{
-		cout << "Данный номер ТС не найден в базе!" << endl;
+		cout << "Р”Р°РЅРЅС‹Р№ РЅРѕРјРµСЂ РўРЎ РЅРµ РЅР°Р№РґРµРЅ РІ Р±Р°Р·Рµ!" << endl;
 		
 	}
 	else
