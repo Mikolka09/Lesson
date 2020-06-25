@@ -38,13 +38,21 @@ public:
 	List<T, size> operator*(const List<T, size> &l);
 	void sort();
 	void sort_revers();
+	friend ostream& operator<<(ostream &out, const List<T, size> &l);
 
 };
 
 template<class T, int size>
+ostream& operator<<(ostream &out, const List<T, size> &l)
+{
+	l.print();
+	return out;
+}
+
+template<class T, int size>
 inline List<T, size>::~List()
 {
-	clear();
+	//clear();
 }
 
 template<class T, int size>
@@ -249,7 +257,7 @@ inline void List<T, size>::print()
 	MyData<T> *temp = first;
 	while (temp)
 	{
-		cout << temp->value << " ";
+		cout << temp->value;
 		temp = temp->next;
 	}
 	cout << endl;

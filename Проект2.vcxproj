@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
+    <ClInclude Include="BasePDR.h" />
     <ClInclude Include="BTree.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="MyData.h" />

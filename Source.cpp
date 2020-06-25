@@ -18,6 +18,7 @@
 #include"List.h"
 #include"BTree.h"
 #include"PrintServer.h"
+#include"BasePDR.h"
 
 
 using namespace std;
@@ -27,17 +28,25 @@ using namespace std;
 
 int main()
 {
-	//setlocale(0, "");
+	
+	//SetConsoleOutputCP(1251);
+	//SetConsoleCP(1251);
+	setlocale(0, "");
+
+		BasePDR b;
+		b.menu();
+	
 
 
 	/*BTree<int, int> tr;
-	tr.push(35, 35);
-	tr.push(15, 15);
-	tr.push(25, 25);
-	tr.push(65, 65);
-	tr.push(5, 10);
-	tr.push(0, 0);
+	tr.push_r(35, 35);
+	tr.push_r(15, 15);
+	tr.push_r(25, 25);
+	tr.push_r(65, 65);
+	tr.push_r(5, 5);
+	tr.push_r(0, 0);
 	tr.print();*/
+	//tr.del();
 
 
 
