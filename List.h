@@ -13,11 +13,13 @@ void gotoxy(int x, int y)
 template<class T, int size>
 class List
 {
-	MyData<T> *first = nullptr;
-	MyData<T> *last = nullptr;
+	MyData<T>* first = nullptr;
+	MyData<T>* last = nullptr;
 	int length = 0;
 public:
 	~List();
+	List<T, size>();
+	List<T, size>(const List<T, size>& obj);//конструктор копирования
 	void push_front(T val);
 	void push_back(T val);
 	void push_at(T val, int pos);
@@ -27,23 +29,24 @@ public:
 	T operator[](int pos);
 	T peek_front();
 	T peek_back();
-	T peek_at(int pos);
+	T peek_at(int pos) const;
 	int getSize();
 	bool ifEmpty();
 	bool isFull();
 	void print();
 	void print(int x, int y);
 	void clear();
-	List<T, size> operator+(const List<T, size> &l);
-	List<T, size> operator*(const List<T, size> &l);
+	List<T, size> operator+(const List<T, size>& l);
+	List<T, size> operator=(const List<T, size>& l);
+	List<T, size> operator*(const List<T, size>& l);
 	void sort();
 	void sort_revers();
-	friend ostream& operator<<(ostream &out, const List<T, size> &l);
+	friend ostream& operator<<(ostream& out, const List<T, size>& l);
 
 };
 
 template<class T, int size>
-ostream& operator<<(ostream &out, const List<T, size> &l)
+ostream& operator<<(ostream& out, const List<T, size>& l)
 {
 	l.print();
 	return out;
@@ -52,7 +55,27 @@ ostream& operator<<(ostream &out, const List<T, size> &l)
 template<class T, int size>
 inline List<T, size>::~List()
 {
-	//clear();
+	clear();
+}
+
+template<class T, int size>
+inline List<T, size>::List()
+{
+	MyData<T>* first = nullptr;
+	MyData<T>* last = nullptr;
+	int length = 0;
+}
+
+template<class T, int size>
+inline List<T, size>::List(const List<T, size>& obj)
+{
+	if (length)
+	{
+		clear();
+	}
+	this->first = obj.first;
+	this->last = obj.last;
+	this->length = obj.length;
 }
 
 template<class T, int size>
@@ -68,7 +91,7 @@ inline void List<T, size>::push_front(T val)
 		}
 		else
 		{
-			MyData<T> *temp = new MyData<T>;
+			MyData<T>* temp = new MyData<T>;
 			temp->value = val;
 			temp->next = first;
 			first = temp;
@@ -92,7 +115,7 @@ inline void List<T, size>::push_back(T val)
 		}
 		else
 		{
-			MyData<T> *temp = new MyData<T>;
+			MyData<T>* temp = new MyData<T>;
 			temp->value = val;
 			last->next = temp;
 			last = temp;
@@ -114,9 +137,9 @@ inline void List<T, size>::push_at(T val, int pos)
 		{
 			if (length < size)
 			{
-				MyData<T> *temp = new MyData<T>;
+				MyData<T>* temp = new MyData<T>;
 				temp->value = val;
-				MyData<T> *num = first;
+				MyData<T>* num = first;
 				for (size_t i = 0; i < pos - 1; i++)
 				{
 					num = num->next;
@@ -134,19 +157,23 @@ inline void List<T, size>::push_at(T val, int pos)
 template<class T, int size>
 inline T List<T, size>::pop_front()
 {
-	
-	MyData<T> *temp = first;
-	first = first->next;
-	T val = temp->value;
-	delete temp;
-	length--;
-	return val;
+	if (length)
+	{
+		MyData<T>* temp = first;
+		first = first->next;
+		T val = temp->value;
+		//delete temp;
+		length--;
+		return val;
+	}
+	else
+		cout << "List Empty" << endl;
 }
 
 template<class T, int size>
 inline T List<T, size>::pop_back()
 {
-	MyData<T> *temp = first;
+	MyData<T>* temp = first;
 	T val = last->value;
 	for (size_t i = 0; i < length - 2; i++)
 	{
@@ -170,12 +197,12 @@ inline T List<T, size>::pop_at(int pos)
 			pop_back();
 		else
 		{
-			MyData<T> *temp = first;
+			MyData<T>* temp = first;
 			for (size_t i = 0; i < pos - 1; i++)
 			{
 				temp = temp->next;
 			}
-			MyData<T> *num = temp->next;
+			MyData<T>* num = temp->next;
 			T val = num->value;
 			temp->next = num->next;
 			delete num;
@@ -191,7 +218,7 @@ inline T List<T, size>::operator[](int pos)
 {
 	if (pos >= 0 && pos < length)
 	{
-		MyData<T> *temp = first;
+		MyData<T>* temp = first;
 		for (size_t i = 0; i < pos; i++)
 		{
 			temp = temp->next;
@@ -214,7 +241,7 @@ inline T List<T, size>::peek_back()
 }
 
 template<class T, int size>
-inline T List<T, size>::peek_at(int pos)
+inline T List<T, size>::peek_at(int pos) const
 {
 	if (pos >= 0 && pos < length)
 	{
@@ -254,10 +281,10 @@ inline void List<T, size>::print()
 		cout << "List empty" << endl;
 		return;
 	}
-	MyData<T> *temp = first;
+	MyData<T>* temp = first;
 	while (temp)
 	{
-		cout << temp->value;
+		cout << temp->value << " ";
 		temp = temp->next;
 	}
 	cout << endl;
@@ -288,6 +315,101 @@ inline void List<T, size>::clear()
 	cout << "List cleared!" << endl;
 }
 
+template<class T, int size>
+inline List<T, size> List<T, size>::operator+(const List<T, size>& l)
+{
+	this->last->next = l.first;
+	this->last = l.last;
+	this->last->next = nullptr;
+	this->length += l.length;
+	return *this;
+}
+
+template<class T, int size>
+inline List<T, size> List<T, size>::operator=(const List<T, size>& obj)
+{
+	if (length)
+	{
+		clear();
+	}
+	this->first = obj.first;
+	this->last = obj.last;
+	this->length = obj.length;
+	return *this;
+}
+
+template<class T, int size>
+inline List<T, size> List<T, size>::operator*(const List<T, size>& l)
+{
+	List<T, 10> temp;
+	int val = 0;
+	for (size_t i = 0; i < this->length; i++)
+	{
+		for (size_t j = 0; j < l.length; j++)
+		{
+			if (this->peek_at(i) == l.peek_at(j))
+			{
+				val = l.peek_at(j);
+				temp.push_front(val);
+			}
+
+		}
+	}
+	this->clear();
+	*this = temp;
+	return *this;
+}
+
+template<class T, int size>
+inline void List<T, size>::sort()
+{
+	List<T, 10> temp;
+	while (length)
+	{
+		int i = 0;
+		int max = this->peek_at(0);
+		int imax = 0;
+		for (size_t j = i + 1; j < length; j++)
+		{
+			if (this->peek_at(j) > max)
+			{
+				max = this->peek_at(j);
+				imax = j;
+			}
+			i++;
+		}
+		temp.push_front(max);
+		this->pop_at(imax);
+	}
+	this->clear();
+	*this = temp;
+}
+
+template<class T, int size>
+inline void List<T, size>::sort_revers()
+{
+	List<T, 10> temp;
+	while (length)
+	{
+		int i = 0;
+		int min = this->peek_at(0);
+		int imin = 0;
+		for (size_t j = i + 1; j < length; j++)
+		{
+			if (this->peek_at(j) < min)
+			{
+				min = this->peek_at(j);
+				imin = j;
+			}
+			i++;
+		}
+		temp.push_front(min);
+		this->pop_at(imin);
+	}
+	this->clear();
+	*this = temp;
+}
+
 
 //////ДВУСВЯЗНЫЙ СПИСОК////////////
 
@@ -295,8 +417,8 @@ inline void List<T, size>::clear()
 template<class T, int size>
 class ForwardList
 {
-	MyData<T> *first = nullptr;
-	MyData<T> *last = nullptr;
+	MyData<T>* first = nullptr;
+	MyData<T>* last = nullptr;
 	int length = 0;
 
 public:
@@ -310,16 +432,15 @@ public:
 	T operator[](int pos);
 	T peek_front();
 	T peek_back();
-	T peek_at(int pos);
+	T peek_at(int pos) const;
 	int getSize();
 	bool isEmpty();
 	bool isFull();
 	void print();
 	void print_reverse();
-	void print(int x, int y);
 	void clear();
-	ForwardList<T, size> operator+(const List<T, size> &l);
-	ForwardList<T, size> operator*(const List<T, size> &l);
+	ForwardList<T, size> operator+(const ForwardList<T, size>& l);
+	ForwardList<T, size> operator*(const ForwardList<T, size>& l);
 	void sort();
 	void sort_revers();
 };
@@ -336,7 +457,7 @@ inline void ForwardList<T, size>::push_front(T val)
 		}
 		else
 		{
-			MyData<T>*temp = new MyData<T>;
+			MyData<T>* temp = new MyData<T>;
 			temp->value = val;
 			temp->next = first;
 			first->prev = temp;
@@ -360,7 +481,7 @@ inline void ForwardList<T, size>::push_back(T val)
 		}
 		else
 		{
-			MyData<T>*temp = new MyData<T>;
+			MyData<T>* temp = new MyData<T>;
 			temp->value = val;
 			last->next = temp;
 			temp->prev = last;
@@ -385,13 +506,13 @@ inline void ForwardList<T, size>::push_at(T val, int pos)
 				push_back(val);
 			else
 			{
-				MyData<T> *temp = new MyData<T>;
+				MyData<T>* temp = new MyData<T>;
 				temp->value = val;
-				MyData<T>*num;
+				MyData<T>* num;
 				if (pos <= length / 2)
 				{
 					num = first;
-					for (size_t i = 0; i < pos-1; i++)
+					for (size_t i = 0; i < pos - 1; i++)
 					{
 						num = num->next;
 
@@ -400,13 +521,13 @@ inline void ForwardList<T, size>::push_at(T val, int pos)
 				else
 				{
 					num = last;
-					for (size_t i = 0; i < length-pos; i++)
+					for (size_t i = 0; i < length - pos; i++)
 					{
 						num = num->prev;
 					}
 				}
 				temp->next = num->next;
-				temp->next -> prev = temp;
+				temp->next->prev = temp;
 				num->next = temp;
 				temp->prev = num;
 				length++;
@@ -423,9 +544,10 @@ inline T ForwardList<T, size>::pop_front()
 {
 	if (length)
 	{
-		MyData<T>*temp = first;
+		MyData<T>* temp = first;
 		T val = first->value;
-		first->next->prev = nullptr;
+		if (length > 1)
+			first->next->prev = nullptr;
 		first = first->next;
 		delete temp;
 		length--;
@@ -440,7 +562,7 @@ inline T ForwardList<T, size>::pop_back()
 {
 	if (length)
 	{
-		MyData<T> *temp = last;
+		MyData<T>* temp = last;
 		T val = last->value;
 		last->prev->next = nullptr;
 		last = last->prev;
@@ -461,12 +583,12 @@ inline T ForwardList<T, size>::pop_at(int pos)
 			pop_front();
 		else
 		{
-			if (pos == length-1)
+			if (pos == length - 1)
 				pop_back();
 			else
 			{
 				T val;
-				MyData<T> *num, *temp;
+				MyData<T>* num, * temp;
 				if (pos <= length / 2)
 				{
 					num = first;
@@ -498,6 +620,66 @@ inline T ForwardList<T, size>::pop_at(int pos)
 }
 
 template<class T, int size>
+inline T ForwardList<T, size>::operator[](int pos)
+{
+	if (pos >= 0 && pos < length)
+	{
+		MyData<T>* temp = first;
+		for (size_t i = 0; i < pos; i++)
+		{
+			temp = temp->next;
+		}
+		return temp->value;
+	}
+	return last->value;
+}
+
+template<class T, int size>
+inline T ForwardList<T, size>::peek_front()
+{
+	return first->value;
+}
+
+template<class T, int size>
+inline T ForwardList<T, size>::peek_back()
+{
+	return last->value;
+}
+
+template<class T, int size>
+inline T ForwardList<T, size>::peek_at(int pos) const
+{
+	if (pos >= 0 && pos < length)
+	{
+		MyData<T>* temp = first;
+		for (size_t i = 0; i < pos; i++)
+		{
+			temp = temp->next;
+		}
+		return temp->value;
+	}
+	return last->value;
+}
+
+template<class T, int size>
+inline int ForwardList<T, size>::getSize()
+{
+	return length;
+}
+
+template<class T, int size>
+inline bool ForwardList<T, size>::isEmpty()
+{
+	return length == 0;
+}
+
+template<class T, int size>
+inline bool ForwardList<T, size>::isFull()
+{
+	return length == size;
+}
+
+template<class T, int size>
 inline void ForwardList<T, size>::print()
 {
 	if (length == 0)
@@ -505,7 +687,7 @@ inline void ForwardList<T, size>::print()
 		cout << "List empty" << endl;
 		return;
 	}
-	MyData<T> *temp = first;
+	MyData<T>* temp = first;
 	while (temp)
 	{
 		cout << temp->value << " ";
@@ -522,7 +704,7 @@ inline void ForwardList<T, size>::print_reverse()
 		cout << "List empty" << endl;
 		return;
 	}
-	MyData<T> *temp = last;
+	MyData<T>* temp = last;
 	while (temp)
 	{
 		cout << temp->value << " ";
@@ -541,3 +723,87 @@ inline void ForwardList<T, size>::clear()
 	first = last = nullptr;
 	cout << "List cleared!" << endl;
 }
+
+template<class T, int size>
+inline ForwardList<T, size> ForwardList<T, size>::operator+(const ForwardList<T, size>& l)
+{
+	MyData<T>* temp = last;
+	this->last->next = l.first;
+	l.first->prev = temp;
+	this->last = l.last;
+	this->length += l.length;
+	return *this;
+}
+
+template<class T, int size>
+inline ForwardList<T, size> ForwardList<T, size>::operator*(const ForwardList<T, size>& l)
+{
+	ForwardList<T, 5> temp;
+	int val = 0;
+	for (size_t i = 0; i < this->length; i++)
+	{
+		for (size_t j = 0; j < l.length; j++)
+		{
+			if (this->peek_at(i) == l.peek_at(j))
+			{
+				val = l.peek_at(j);
+				temp.push_front(val);
+			}
+
+		}
+	}
+	this->clear();
+	*this = temp;
+	return *this;
+}
+
+template<class T, int size>
+inline void ForwardList<T, size>::sort()
+{
+	ForwardList<T, 5> temp;
+	while (length)
+	{
+		int i = 0;
+		int max = this->peek_at(0);
+		int imax = 0;
+		for (size_t j = i + 1; j < length; j++)
+		{
+			if (this->peek_at(j) > max)
+			{
+				max = this->peek_at(j);
+				imax = j;
+			}
+			i++;
+		}
+		temp.push_front(max);
+		this->pop_at(imax);
+	}
+	this->clear();
+	*this = temp;
+}
+
+template<class T, int size>
+inline void ForwardList<T, size>::sort_revers()
+{
+	ForwardList<T, 5> temp;
+	while (length)
+	{
+		int i = 0;
+		int min = this->peek_at(0);
+		int imin = 0;
+		for (size_t j = i + 1; j < length; j++)
+		{
+			if (this->peek_at(j) < min)
+			{
+				min = this->peek_at(j);
+				imin = j;
+			}
+			i++;
+		}
+		temp.push_front(min);
+		this->pop_at(imin);
+	}
+	this->clear();
+	*this = temp;
+}
+

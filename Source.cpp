@@ -18,7 +18,7 @@
 #include"List.h"
 #include"BTree.h"
 #include"PrintServer.h"
-#include"BasePDR.h"
+//#include"BasePDR.h"
 
 
 using namespace std;
@@ -33,8 +33,8 @@ int main()
 	SetConsoleCP(1251);
 	setlocale(0, "");
 
-		BasePDR b;
-		b.menu();
+		/*BasePDR b;
+		b.menu();*/
 	
 
 
@@ -50,20 +50,49 @@ int main()
 
 
 
-	/*ForwardList<int, 5> l;
+	ForwardList<int, 5> l;
 	l.push_front(5);
-	l.push_front(15);
+	l.push_front(30);
 	l.push_front(25);
-	l.push_back(35);
+	l.push_back(20);
 	l.print();
-	l.pop_at(2);
+	//l.sort();
+	l.sort_revers();
+	l.print();
+	//ForwardList<int, 5> l1;
+	//l1.push_front(10);
+	//l1.push_front(15);
+	//l1.push_front(20);
+	//l1.push_back(35);
+	//l1.print();
+	//ForwardList<int, 5> l2;
+	//l2 = l * l1;
+	//l2.print();
+	////cout<< l.peek_at(1);
+	/*cout << endl;
 	l.print();
 	l.print_reverse();*/
 
 
-	//List<int, 10> list;
-	//list.push_front(5);
-	//list.push_front(15);
+	/*List<int, 10> list;
+	list.push_front(35);
+	list.push_front(20);
+	list.push_front(30);
+	list.push_front(15);
+	list.print();
+	list.sort_revers();
+	list.sort();
+	cout << list;
+	list.print();*/
+	//List<int, 10> list1;
+	//list1.push_front(30);
+	//list1.push_front(5);
+	//list1.push_front(50);
+	//list1.push_front(20);
+	//list1.print();
+	//List<int, 10> list3;
+	//list3 = list * list1;
+	//list3.print();
 	//list.push_front(25);
 	/*list.print();
 	list.push_back(40);
