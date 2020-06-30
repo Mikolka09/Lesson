@@ -15,6 +15,8 @@ int getPriorety(char c)
 		return 1;
 	case '*': case '/':
 		return 2;
+	case '(': case ')':
+		return 3;
 	default:
 		break;
 	}
@@ -50,23 +52,24 @@ int main()
 			num.push(data[i] - 48);
 		else
 		{
-			if(data[i] == '(')
+			if (data[i] == '(')
 				op.push(data[i]);
+			if (data[i] == ')')
+			{
+				while (data[i] != '(')
+				{
+					int a = num.pop();
+					int b = num.pop();
+					num.push(operation(a, b, op.pop()));
+				}
+				op.pop();
+			}
 			else if (data[i] == '*' || data[i] == '/' || data[i] == '+' || data[i] == '-')
 			{
-				if (op.isEmpty())
+				if (op.isEmpty() || op.peek() == '(')
 					op.push(data[i]);
 				else
 				{
-					if (data[i] == ')')
-					{
-						op.pop();
-						int a = num.pop();
-						int b = num.pop();
-						num.push(operation(a, b, op.pop()));
-						op.pop();
-						op.push(data[i]);
-					}
 					if (getPriorety(data[i]) >= getPriorety(op.peek()))
 					{
 						op.push(data[i]);

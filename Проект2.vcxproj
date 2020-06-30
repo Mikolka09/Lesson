@@ -124,8 +124,11 @@
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="BasePDR.h" />
     <ClInclude Include="BTree.h" />
+    <ClInclude Include="Car.h" />
+    <ClInclude Include="Inheritance.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="MyData.h" />
+    <ClInclude Include="PiggyBank.h" />
     <ClInclude Include="PrintServer.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
