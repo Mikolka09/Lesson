@@ -83,9 +83,6 @@
     <ClInclude Include="Queue.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="PiggyBank.h">
-      <Filter>Файлы исходного кода</Filter>
-    </ClInclude>
     <ClInclude Include="List.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>

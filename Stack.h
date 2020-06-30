@@ -127,7 +127,7 @@ inline T DynamicStack<T, size>::pop()
 	T val = data->value;
 	MyData<T> *temp = data;
 	data = data->next;
-	delete temp;
+	//delete temp;
 	top--;
 	return val;
 }
