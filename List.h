@@ -1,6 +1,11 @@
 ﻿#pragma once
 #include"MyData.h"
 #include<Windows.h>
+#include<iostream>
+
+using namespace std;
+
+
 
 void gotoxy(int x, int y)
 {
@@ -73,9 +78,16 @@ inline List<T, size>::List(const List<T, size>& obj)
 	{
 		clear();
 	}
-	this->first = obj.first;
-	this->last = obj.last;
-	this->length = obj.length;
+	MyData<T>* first = obj.first;
+	MyData<T>* last = obj.last;
+	int length = obj.length;
+	for (size_t i = 0; i < length; i++)
+	{
+		first->value = obj.first->value;
+		first->next = obj.first->next;
+		last->value = obj.last->value;
+		last->next = obj.last->next;
+	}
 }
 
 template<class T, int size>
@@ -162,7 +174,7 @@ inline T List<T, size>::pop_front()
 		MyData<T>* temp = first;
 		first = first->next;
 		T val = temp->value;
-		//delete temp;
+		delete temp;
 		length--;
 		return val;
 	}
@@ -318,8 +330,16 @@ inline void List<T, size>::clear()
 template<class T, int size>
 inline List<T, size> List<T, size>::operator+(const List<T, size>& l)
 {
-	this->last->next = l.first;
-	this->last = l.last;
+	MyData<T>* temp = l.first;
+	MyData<T>* temp1 = l.last;
+	for (size_t i = 0; i < l.length; i++)
+	{
+		temp->value = l.first->value;
+		temp->next = l.first->next;
+		temp->value = l.last->value;
+	}
+	this->last->next = temp;
+	this->last = temp1;
 	this->last->next = nullptr;
 	this->length += l.length;
 	return *this;
@@ -332,9 +352,16 @@ inline List<T, size> List<T, size>::operator=(const List<T, size>& obj)
 	{
 		clear();
 	}
-	this->first = obj.first;
-	this->last = obj.last;
-	this->length = obj.length;
+	MyData<T>* first = obj.first;
+	MyData<T>* last = obj.last;
+	int length = obj.length;
+	for (size_t i = 0; i < length; i++)
+	{
+		first->value = obj.first->value;
+		first->next = obj.first->next;
+		last->value = obj.last->value;
+		last->next = obj.last->next;
+	}
 	return *this;
 }
 
