@@ -40,6 +40,7 @@ int main()
 
 	Dog D("Hulk", 10);
 	cout << D.getName() << endl;
+	 
 
 	Animal &rD = D;
 	cout << rD.getName() << endl;
