@@ -21,7 +21,8 @@
 //#include"BasePDR.h"
 #include"Car.h"
 #include"Inheritance.h"
-
+#include"A.h"
+#include"Animal.h"
 
 using namespace std;
 
@@ -34,6 +35,46 @@ int main()
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
+
+
+
+	Dog D("Hulk", 10);
+	cout << D.getName() << endl;
+
+	Animal &rD = D;
+	cout << rD.getName() << endl;
+
+	Animal *pD = &D;
+	cout << pD->getName() << endl;
+	
+	Cat C("Tom", 3);
+	Animal *pC = &C;
+	cout << pC->getName() << endl;
+
+	Medusa M("Jerry", 1);
+
+	Animal *animal[] = { &C, &D, &M };
+	for (size_t i = 0; i < 3; i++)
+	{
+		cout << animal[i]->getName() << " ";
+		animal[i]->voice();
+	}
+	cout << endl;
+	
+	/*A a;
+	a.a1 = 5;
+	a.a2 = 5;
+	a.a3 = 5;
+	a.pr();
+
+
+	B b;
+	b.a1 = 5;
+	b.a2 = 5;
+	b.a3 = 5;
+	b.pr();*/
+
+
 
 	/*Human h;
 	cout << endl;

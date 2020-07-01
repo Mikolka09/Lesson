@@ -83,10 +83,8 @@ inline List<T, size>::List(const List<T, size>& obj)
 	int length = obj.length;
 	for (size_t i = 0; i < length; i++)
 	{
-		first->value = obj.first->value;
-		first->next = obj.first->next;
-		last->value = obj.last->value;
-		last->next = obj.last->next;
+		value = obj.value;
+		next = obj.next;
 	}
 }
 
