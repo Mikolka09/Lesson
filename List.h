@@ -83,10 +83,8 @@ inline List<T, size>::List(const List<T, size>& obj)
 	int length = obj.length;
 	for (size_t i = 0; i < length; i++)
 	{
-		first->value = obj.first->value;
-		first->next = obj.first->next;
-		last->value = obj.last->value;
-		last->next = obj.last->next;
+		this->push_back(first->value);
+		first = first->next;
 	}
 }
 
@@ -296,7 +294,7 @@ inline void List<T, size>::print()
 	MyData<T>* temp = first;
 	while (temp)
 	{
-		cout << temp->value << " ";
+		cout << temp->value;
 		temp = temp->next;
 	}
 	cout << endl;
@@ -330,18 +328,22 @@ inline void List<T, size>::clear()
 template<class T, int size>
 inline List<T, size> List<T, size>::operator+(const List<T, size>& l)
 {
-	MyData<T>* temp = l.first;
-	MyData<T>* temp1 = l.last;
+	List<T, 10> newL;
+	MyData<T>* temp = this->first;
+	MyData<T>* temp1 = l.first;
+	for (size_t i = 0; i < this->length; i++)
+	{
+		newL.push_back(temp->value);
+		temp = temp->next;
+	}
 	for (size_t i = 0; i < l.length; i++)
 	{
-		temp->value = l.first->value;
-		temp->next = l.first->next;
-		temp->value = l.last->value;
+		newL.push_back(temp1->value);
+		temp1 = temp1->next;
 	}
-	this->last->next = temp;
-	this->last = temp1;
-	this->last->next = nullptr;
-	this->length += l.length;
+	l.~List();
+	this->clear();
+	*this = newL;
 	return *this;
 }
 
@@ -357,10 +359,8 @@ inline List<T, size> List<T, size>::operator=(const List<T, size>& obj)
 	int length = obj.length;
 	for (size_t i = 0; i < length; i++)
 	{
-		first->value = obj.first->value;
-		first->next = obj.first->next;
-		last->value = obj.last->value;
-		last->next = obj.last->next;
+		this->push_back(first->value);
+		first = first->next;
 	}
 	return *this;
 }

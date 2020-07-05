@@ -18,7 +18,7 @@
 #include"List.h"
 #include"BTree.h"
 #include"PrintServer.h"
-//#include"BasePDR.h"
+#include"BasePDR.h"
 #include"Car.h"
 #include"Inheritance.h"
 
@@ -57,8 +57,8 @@ int main()
 
 
 
-	/*BasePDR b;
-	b.menu();*/
+	BasePDR b;
+	b.menu();
 
 
 
