@@ -2,7 +2,7 @@
 #include<iostream>
 #include<Windows.h>
 #include<conio.h>
-#include"MyString.h"
+//#include"MyString.h"
 #include"MyClass.h"
 #include"Array1D.h"
 #include"Point.h"
@@ -31,14 +31,31 @@ using namespace std;
 
 int main()
 {
-
+	
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
+	MyString st("aaa");
+	cout << st << endl;
+	cout << st.getLen() << endl;
+	//st.clear();
+	//cout << "--------------------" << endl;
+	//cout << st << endl;
+	MyString st1("ddd");
+	//st1 = st;
+	cout << "--------------------" << endl;
+	cout << st1 << endl;
+	//MyString st2;
+	st += st1;
+	cout << "--------------------" << endl;
+	cout << st << endl;
+
+	bool s = st != st1;
+	cout << s << endl;
 
 
-	Dog D("Hulk", 10);
+	/*Dog D("Hulk", 10);
 	cout << D.getName() << endl;
 	 
 
@@ -60,7 +77,7 @@ int main()
 		cout << animal[i]->getName() << " ";
 		animal[i]->voice();
 	}
-	cout << endl;
+	cout << endl;*/
 	
 	/*A a;
 	a.a1 = 5;
@@ -99,8 +116,8 @@ int main()
 
 
 
-	BasePDR b;
-	b.menu();
+	/*BasePDR b;
+	b.menu();*/
 
 
 

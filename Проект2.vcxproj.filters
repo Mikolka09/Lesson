@@ -50,9 +50,6 @@
     <ClInclude Include="MyClass.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="MyString.h">
-      <Filter>Файлы исходного кода</Filter>
-    </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
@@ -105,6 +102,9 @@
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
     <ClInclude Include="Animal.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
+    <ClInclude Include="MyString.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
   </ItemGroup>
