@@ -248,16 +248,14 @@ inline void BasePDR::load()
 	ifstream fin("Base.bin", ios::binary | ios::in);
 	if (fin.is_open())
 	{
-		List<Protocol*, 100> protocols;
-		BTree<string, List<Protocol*, 100>> baseTS;
 		Protocol* prot = new Protocol;
 		int length;
 		fin.read((char*)&length, sizeof(int));
 		while (length != 0)
 		{
 			fin.read((char*)&prot, sizeof(Protocol));
-			protocols.push_back(prot);
-			baseTS.push(prot->getNumTS(), protocols);
+			this->protocols.push_back(prot);
+			this->baseTS.push(prot->getNumTS(), this->protocols);
 			length--;
 		}
 

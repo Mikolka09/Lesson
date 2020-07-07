@@ -51,7 +51,6 @@ MyString::MyString() :MyString(80) {}
 MyString::MyString(int len)
 {
 	this->str = new char[len + 1];
-	strcpy(this->str, str);
 	this->str[0] = '\0';
 	count++;
 }
@@ -110,6 +109,7 @@ MyString::~MyString()
 {
 	delete[] this->str;
 	this->str = nullptr;
+	this->len = 0;
 	count--;
 }
 
@@ -194,40 +194,42 @@ inline void MyString::clear()
 class BitMyString :public MyString
 {
 private:
-	char* strM; //строка отрицательных значений
-	int lenM;   //размер отрицательной строки
+	char* stM; //строка отрицательных значений
+	int lnM;   //размер отрицательной строки
 public:
-	BitMyString():MyString(){}
-	BitMyString(int len):MyString(len){}
+	BitMyString() :MyString() {}
+	BitMyString(int len) :MyString(len) {}
 	BitMyString(char* st);
 	~BitMyString();
-	
 
-	bool boolString(char *st); //проверка на наличие других не битовых символов
+
+	bool boolString(char* st); //проверка на наличие других не битовых символов
 	int countM(char* st); //подсчет отрицательных элементов строки
-	void transDouble(char* st);
+	char* transDouble(char* st);
 };
 
 
-inline BitMyString::BitMyString(char* st)
+inline BitMyString::BitMyString(char* st) :MyString(st)
 {
 	if (boolString(st))
 	{
-		this->len = strlen(st);
 		if (countM(st))
 		{
-			this->strM = new char[countM(st) + 1];
+			this->len = strlen(st);
+			this->stM = new char[countM(st) + 1];
 			this->str = new char[this->len + 1];
 			for (size_t i = 0; i < this->len; i++)
 			{
 				if (st[i] < 0)
-					this->strM[i] = st[i];
+					this->stM[i] = st[i];
 				else
 					this->str[i] = st[i];
 			}
 		}
 		else
 		{
+			transDouble(st);
+			this->len = strlen(st);
 			this->str = new char[this->len + 1];
 			strcpy(this->str, st);
 		}
@@ -243,7 +245,7 @@ inline BitMyString::BitMyString(char* st)
 bool BitMyString::boolString(char* st)
 {
 	int len = strlen(st);
-	for (size_t i = 0; i < this->len; i++)
+	for (size_t i = 0; i < len; i++)
 	{
 		if (st[i] < '0' || st[i] > '9')
 			return false;
@@ -263,35 +265,55 @@ inline int BitMyString::countM(char* st)
 	return countM;
 }
 
-void BitMyString::transDouble(char* st)
+void addSimbChar(char* s, char elem)
+{
+	if (!strlen(s))
+	{
+		int ln = strlen(s);
+		char* b = new char[ln + 1];
+		b[ln] = elem;
+		s[0] = b[ln];
+	}
+	else
+	{
+		int ln = strlen(s);
+		char* b = new char[ln + 1];
+		for (size_t i = 0; i < ln; i++)
+		{
+			b[i] = s[i];
+		}
+		b[ln] = elem;
+		_strset(s, '\0');
+		strcpy(s, b);
+	}
+
+}
+
+char* BitMyString::transDouble(char* st)
 {
 	int len = strlen(st);
-	char * rez = nullptr;
+	char* result = new char[80];
 	int k(0);
 	while (len)
 	{
 		int i(0);
-		while (st[i] > 0)
+		do
 		{
-			int r = st[i] % 2;
-			rez[k++] = (r < 10) ? r + 48 : r + 55;
-			st[i] /= 2;
+			if (st[i] == '0' || st[i] == '1')
+				addSimbChar(result, st[i]);
+			char res = ('0' + (st[i] % 2));
+			if (res == '0' || res == '1')
+				addSimbChar(result, res);
+			st[i] = (int)st[i] / 2;
 			i++;
-		}
-		for (int i = k - 1; i >= 0; i--)
-		{
-			 rez[i];
-		}
+		} while (st[i] > 0);
 		len--;
 	}
-	
-	cout << endl;
-
+	return result;
 }
 
 
 inline BitMyString::~BitMyString()
 {
-	delete[]str;
-	delete[]strM;
+	delete[]stM;
 }
