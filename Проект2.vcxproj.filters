@@ -107,6 +107,9 @@
     <ClInclude Include="MyString.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
+    <ClInclude Include="Ploshad.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Base.bin">

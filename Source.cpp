@@ -1,8 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<Windows.h>
 #include<conio.h>
-//#include"MyString.h"
+#include"MyString.h"
 #include"MyClass.h"
 #include"Array1D.h"
 #include"Point.h"
@@ -23,10 +23,30 @@
 #include"Inheritance.h"
 #include"A.h"
 #include"Animal.h"
+#include<fstream>
+#include"Ploshad.h"
 
 using namespace std;
 
 
+double  mySQRT(int a, IMyErrorLog &cl)
+{
+	if (a < 0)
+	{
+		cl.writeError("Число отрицательное");
+		return 0;
+	}
+	return sqrt(a);
+}
+
+double division(int a, int b)
+{
+	if (b == 0)
+	{
+		throw "Делить на ноль нельзя!";
+	}
+	return a / b;
+}
 
 
 int main()
@@ -36,23 +56,62 @@ int main()
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
-	MyString st("aaa");
-	cout << st << endl;
-	cout << st.getLen() << endl;
-	//st.clear();
+	int a, b, c;
+	cin >> a >> b;
+	try//ловит исключение
+	{
+		cout << division(a, b) << endl;
+		/*if (b == 0)
+			throw "Делить на ноль нельзя!";
+		cout << a / b << endl;*/
+		//throw 1; //говорить о том что будет выброшено исключение, после этой команды код не пойдет
+	}
+	catch (int a)//обрабатывает исключение
+	{
+		cout << "Обработано исключение целого типа со значение "<< a << endl;
+	}
+	
+	catch (double a)//обрабатывает исключение
+	{
+		cout << "Обработано исключение вещественного типа со значение " << a << endl;
+	}
+
+	catch (const char *n)
+	{
+		cout << n << endl;
+	}
+
+	catch (...)//обрабатывает все, что не обработалось
+	{
+		cout << "Что-то не так!" << endl;
+	}
+
+	cout << "Stop" << endl;
+
+	/*FileErrorLog fl("data.txt");
+	ConsoleErrorLog cl;
+	cout << mySQRT(25, cl) << endl;*/
+	//cout << cl.getError() << endl;
+
+
+
+	//MyString st("aaa");
+	//cout << st << endl;
+	//cout << st.getLen() << endl;
+	////st.clear();
+	////cout << "--------------------" << endl;
+	////cout << st << endl;
+	//MyString st1("ddd");
+	////st1 = st;
+	//cout << "--------------------" << endl;
+	//cout << st1 << endl;
+	////MyString st2;
+	//st += st1;
 	//cout << "--------------------" << endl;
 	//cout << st << endl;
-	MyString st1("ddd");
-	//st1 = st;
-	cout << "--------------------" << endl;
-	cout << st1 << endl;
-	//MyString st2;
-	st += st1;
-	cout << "--------------------" << endl;
-	cout << st << endl;
 
-	bool s = st != st1;
-	cout << s << endl;
+	//bool s = st != st1;
+	//cout << s << endl;
 
 
 	/*Dog D("Hulk", 10);
@@ -256,16 +315,16 @@ int main()
 	arr1.add(9);
 	arr1.print();
 	cout << arr1[2] << endl;
-	cout << "����� - " << arr1.getSize() << endl;
-	cout << "��������� - " << arr1.getsizeFull() << endl;*/
+	cout << "всего - " << arr1.getSize() << endl;
+	cout << "заполнено - " << arr1.getsizeFull() << endl;*/
 
 	/*Array1D<double> arr2(4);
 	arr2.add(2.56);
 	arr2.add(6.58);
 	arr2.add(3.38);
 	arr2.print();
-	cout << "����� - " << arr2.getSize() << endl;
-	cout << "��������� - " << arr2.getsizeFull() << endl;*/
+	cout << "всего - " << arr2.getSize() << endl;
+	cout << "заполнено - " << arr2.getsizeFull() << endl;*/
 
 	/*Array1D a(3);
 	cin >> a;
