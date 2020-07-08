@@ -93,6 +93,7 @@ inline void List<T, size>::push_front(T val)
 {
 	if (length < size)
 	{
+		throw MyException(SIZE_FULL);
 		if (length == 0)
 		{
 			first = new MyData<T>;
@@ -227,15 +228,14 @@ template<class T, int size>
 inline T List<T, size>::operator[](int pos)
 {
 	if (pos >= 0 && pos < length)
+		throw MyException(INVALID_INDEX);
+	MyData<T>* temp = first;
+	for (size_t i = 0; i < pos; i++)
 	{
-		MyData<T>* temp = first;
-		for (size_t i = 0; i < pos; i++)
-		{
-			temp = temp->next;
-		}
-		return temp->value;
+		temp = temp->next;
 	}
-	return last->value;
+	return temp->value;
+
 }
 
 template<class T, int size>
@@ -286,15 +286,18 @@ inline bool List<T, size>::isFull()
 template<class T, int size>
 inline void List<T, size>::print()
 {
-	if (length == 0)
+	/*if (length == 0)
 	{
 		cout << "List empty" << endl;
 		return;
 	}
+	*/
 	MyData<T>* temp = first;
+	if (!temp)
+		throw MyException(NULLPTR);
 	while (temp)
 	{
-		cout << temp->value;
+		cout << temp->value << " ";
 		temp = temp->next;
 	}
 	cout << endl;
@@ -615,7 +618,7 @@ inline T ForwardList<T, size>::pop_at(int pos)
 			else
 			{
 				T val;
-				MyData<T>* num, * temp;
+				MyData<T>* num, *temp;
 				if (pos <= length / 2)
 				{
 					num = first;

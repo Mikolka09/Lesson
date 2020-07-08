@@ -13,16 +13,16 @@ public:
 	Animal(string n, int a) : name(n), age(a) {}
 
 	virtual string getName() { return " ??? "; }
-	//virtual void voice() { cout << " Я немая! "; }
-	virtual void voice() = 0; //теперь класс энимал стал абстрактный
+	virtual void voice() { cout << " Я немая! "; }
+	//virtual void voice() = 0; //теперь класс энимал стал абстрактный
 	//виртуальная функция вызывает функции самого нижнего подкласса 
 };
 
 
-inline void Animal::voice()
-{
-	cout << "Я немая!" << endl;
-}
+//inline void Animal::voice()
+//{
+//	cout << "Я немая!" << endl;
+//}
 
 class Dog : public Animal
 {

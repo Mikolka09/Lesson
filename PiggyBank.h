@@ -127,3 +127,23 @@ int main()
 	}
 	cout << num.peek() << endl;
 }
+
+
+//Проверка на выход за пределы
+int a;
+do {
+	try {
+		cin >> a;
+		if (a == INT_MAX || a == INT_MIN)
+		{
+			cin.clear();
+			cin.ignore(32767, '\n');
+			throw "MAX";
+		}
+		cout << a << endl;
+	}
+	catch (const char* n)
+	{
+		cout << n << endl;
+	}
+} while (a == INT_MAX || a == INT_MIN);

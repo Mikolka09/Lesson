@@ -25,18 +25,47 @@
 #include"Animal.h"
 #include<fstream>
 #include"Ploshad.h"
+#include"MyException.h"
 
 using namespace std;
 
 
-double  mySQRT(int a, IMyErrorLog &cl)
+
+double  mySQRT(int a, IMyErrorLog &el)
 {
-	if (a < 0)
+	try
 	{
-		cl.writeError("Число отрицательное");
+		if (a < 0)
+		{
+			throw a;
+			return sqrt(a);
+		}
+	}
+	catch (int a)
+	{
+		el.writeError("Число отрицательное");
+		throw a;
+	}
+	//cl.writeError("Число отрицательное");
+	//return 0;
+
+
+}
+
+double discrm(int a, int b, int c, IMyErrorLog &el)
+{
+	double D;
+	try
+	{
+		D = mySQRT(b*b - 4 * a*c, el);
+		return D;
+	}
+	catch(int a)
+	{
+		cout << "Discr not define" << endl;
 		return 0;
 	}
-	return sqrt(a);
+	
 }
 
 double division(int a, int b)
@@ -51,17 +80,73 @@ double division(int a, int b)
 
 int main()
 {
-	
+
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
+	/*FileErrorLog fn ("data.txt");
+	cout << discrm(5,1,1, fn) << endl;*/
 
-	BitMyString bst = "156789";
+
+	/*try
+	{
+		try
+		{
+			throw Cat("Bim", 2);
+		}
+
+		catch (Animal &a)
+		{
+			cout << "Exception for Cat" << endl;
+			cout << a.getName() << endl;
+			a.voice();
+			throw;
+		}
+
+	}
+
+	catch (Animal &a)
+	{
+		cout << endl<< "Exception for Cat 2" << endl;
+		cout << a.getName() << endl;
+		a.voice();
+		
+	}*/
+
+
+	int a;
+	a = MyException::get_value();
 	
-	
 
 
+
+
+
+	//List<int, 5> ls;
+	//try
+	//{
+	//	/*ls.push_front(5);
+	//	ls.push_front(15);
+	//	ls.push_front(25);
+	//	ls.push_front(35);
+	//	ls.push_front(45);
+	//	ls.push_front(55);*/
+	//	ls.print();
+	//}
+
+	//catch (const char *n)
+	//{
+	//	cout << n << endl;
+	//}
+	//catch (MyException &e)
+	//{
+	//	cerr << e.get_error() << endl;
+	//}
+
+
+
+	//BitMyString bst = "156789";
 
 	//int a, b, c;
 	//cin >> a >> b;
@@ -123,14 +208,14 @@ int main()
 
 	/*Dog D("Hulk", 10);
 	cout << D.getName() << endl;
-	 
+
 
 	Animal &rD = D;
 	cout << rD.getName() << endl;
 
 	Animal *pD = &D;
 	cout << pD->getName() << endl;
-	
+
 	Cat C("Tom", 3);
 	Animal *pC = &C;
 	cout << pC->getName() << endl;
@@ -144,7 +229,7 @@ int main()
 		animal[i]->voice();
 	}
 	cout << endl;*/
-	
+
 	/*A a;
 	a.a1 = 5;
 	a.a2 = 5;
