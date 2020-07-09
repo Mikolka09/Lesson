@@ -26,6 +26,8 @@
 #include<fstream>
 #include"Ploshad.h"
 #include"MyException.h"
+#include"Foo.h"
+#include"Boo.h"
 
 using namespace std;
 
@@ -60,12 +62,12 @@ double discrm(int a, int b, int c, IMyErrorLog &el)
 		D = mySQRT(b*b - 4 * a*c, el);
 		return D;
 	}
-	catch(int a)
+	catch (int a)
 	{
 		cout << "Discr not define" << endl;
 		return 0;
 	}
-	
+
 }
 
 double division(int a, int b)
@@ -77,6 +79,25 @@ double division(int a, int b)
 	return a / b;
 }
 
+int oper(int a, int b)
+{
+	return a + b;
+}
+
+
+Animal* generator(int n)
+{
+	switch (n)
+	{
+	case 0:
+		return new Animal("noname", 0);
+	case 1:
+		return new Cat("BoBo", 2);
+	case 2:
+		return new Dog("Jack", 10);
+	}
+}
+
 
 int main()
 {
@@ -84,6 +105,48 @@ int main()
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
+
+
+
+	/*Cat c("Dodo", 2);
+	Animal& a = c;
+
+	cout << a.getName() << endl;
+	a.voice();
+
+	Animal aa = c;
+	cout << aa.getName() << endl;
+	aa.voice();*/
+
+	/*Animal* aaa = generator(2);
+	cout << aaa->getName() << endl;
+	aaa->voice();
+
+	Cat* c = dynamic_cast<Cat*>(aaa);
+	if (c)
+		c->getArea();*/
+
+
+	//my_stack::StaticStack<int, 10> st;
+
+	/*cout << Foo::operation(3, 6) << endl;
+	cout << Boo::operation(3, 6) << endl;
+	Koo::Doo::oper1(2, 3);
+
+	namespace voo = Koo::Doo;
+	voo::oper1(3, 5);
+	::oper(3, 5);
+
+	{
+		using namespace Foo;
+		cout << Foo::operation(3, 6) << endl;
+	}
+
+	{
+		using namespace Boo;
+		cout << Boo::operation(3, 6) << endl;
+	}*/
+
 
 	/*FileErrorLog fn ("data.txt");
 	cout << discrm(5,1,1, fn) << endl;*/
@@ -111,13 +174,13 @@ int main()
 		cout << endl<< "Exception for Cat 2" << endl;
 		cout << a.getName() << endl;
 		a.voice();
-		
+
 	}*/
 
 
-	int a;
-	a = MyException::get_value();
-	
+	/*int a;
+	a = MyException::get_value();*/
+
 
 
 

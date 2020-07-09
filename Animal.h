@@ -41,6 +41,7 @@ public:
 	Cat(string n, int a) :Animal(n, a) {}
 	virtual string getName() override { return "Cat " + name; }
 	virtual void voice() override { cout << "Myau-Myau" << endl; }
+	void getArea() { cout << "Я домашняя!" << endl; }
 };
 
 class Medusa : public Animal
