@@ -33,70 +33,70 @@ using namespace std;
 
 
 
-double  mySQRT(int a, IMyErrorLog &el)
-{
-	try
-	{
-		if (a < 0)
-		{
-			throw a;
-			return sqrt(a);
-		}
-	}
-	catch (int a)
-	{
-		el.writeError("Число отрицательное");
-		throw a;
-	}
-	//cl.writeError("Число отрицательное");
-	//return 0;
-
-
-}
-
-double discrm(int a, int b, int c, IMyErrorLog &el)
-{
-	double D;
-	try
-	{
-		D = mySQRT(b*b - 4 * a*c, el);
-		return D;
-	}
-	catch (int a)
-	{
-		cout << "Discr not define" << endl;
-		return 0;
-	}
-
-}
-
-double division(int a, int b)
-{
-	if (b == 0)
-	{
-		throw "Делить на ноль нельзя!";
-	}
-	return a / b;
-}
-
-int oper(int a, int b)
-{
-	return a + b;
-}
-
-
-Animal* generator(int n)
-{
-	switch (n)
-	{
-	case 0:
-		return new Animal("noname", 0);
-	case 1:
-		return new Cat("BoBo", 2);
-	case 2:
-		return new Dog("Jack", 10);
-	}
-}
+//double  mySQRT(int a, IMyErrorLog &el)
+//{
+//	try
+//	{
+//		if (a < 0)
+//		{
+//			throw a;
+//			return sqrt(a);
+//		}
+//	}
+//	catch (int a)
+//	{
+//		el.writeError("Число отрицательное");
+//		throw a;
+//	}
+//	//cl.writeError("Число отрицательное");
+//	//return 0;
+//
+//
+//}
+//
+//double discrm(int a, int b, int c, IMyErrorLog &el)
+//{
+//	double D;
+//	try
+//	{
+//		D = mySQRT(b*b - 4 * a*c, el);
+//		return D;
+//	}
+//	catch (int a)
+//	{
+//		cout << "Discr not define" << endl;
+//		return 0;
+//	}
+//
+//}
+//
+//double division(int a, int b)
+//{
+//	if (b == 0)
+//	{
+//		throw "Делить на ноль нельзя!";
+//	}
+//	return a / b;
+//}
+//
+//int oper(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//
+//Animal* generator(int n)
+//{
+//	switch (n)
+//	{
+//	case 0:
+//		return new Animal("noname", 0);
+//	case 1:
+//		return new Cat("BoBo", 2);
+//	case 2:
+//		return new Dog("Jack", 10);
+//	}
+//}
 
 
 int main()
@@ -107,7 +107,22 @@ int main()
 	setlocale(0, "");
 
 
+	BitMyString bst = "-5-1052-1";
+	bst.print();
 
+
+	/*char ss = '5';
+	bool t = true;
+	while (t)
+	{
+		char res = ('0' + (ss % 2));
+		ss = ('0' + ss) / 2;
+		int p = (int(ss)-(int)'0') / 2;
+
+		if (p == 0)
+			t = false;
+	}*/
+		
 	/*Cat c("Dodo", 2);
 	Animal& a = c;
 

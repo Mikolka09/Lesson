@@ -19,7 +19,7 @@ public:
 	MyString(const char* str);
 
 	void inputString();
-	void print() const;
+	virtual void print() const;
 
 	MyString(const MyString& obj);
 	MyString operator=(const MyString& obj);
@@ -31,7 +31,7 @@ public:
 	bool operator==(const MyString& st);
 	bool operator!=(const MyString& st);
 
-	char* getString() const;
+	virtual char* getString() const;
 	int getLen() const;
 	void clear();
 
@@ -191,39 +191,66 @@ inline void MyString::clear()
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 class BitMyString :public MyString
 {
 private:
 	char* stM; //строка отрицательных значений
 	int lnM;   //размер отрицательной строки
 public:
-	BitMyString() :MyString() {}
-	BitMyString(int len) :MyString(len) {}
+	BitMyString();
+	BitMyString(int len);
 	BitMyString(char* st);
 	~BitMyString();
+
+	BitMyString(const BitMyString& obj);
+	BitMyString operator=(const BitMyString& obj);
+
+	virtual void print() const;
+	virtual char* getString() const;
+	char* getStringM() const;
 
 
 	bool boolString(char* st); //проверка на наличие других не битовых символов
 	int countM(char* st); //подсчет отрицательных элементов строки
-	char* transDouble(char* st);
+	char* transDouble(char*& st);//перевод в двоичную ситему
+
+	BitMyString operator+(const BitMyString& st);
+	BitMyString operator+=(const BitMyString& st);
+	bool operator==(const BitMyString& st);
+	bool operator!=(const BitMyString& st);
 };
 
 
-inline BitMyString::BitMyString(char* st) :MyString(st)
+inline BitMyString::BitMyString() : MyString(80) {}
+
+
+inline BitMyString::BitMyString(int len) : MyString(len) {}
+
+
+inline BitMyString::BitMyString(char* st)
 {
 	if (boolString(st))
 	{
 		if (countM(st))
 		{
 			this->len = strlen(st);
-			this->stM = new char[countM(st) + 1];
-			this->str = new char[this->len + 1];
+			this->stM = new char[countM(st) * 2 + 1];
+			this->str = new char[(this->len - countM(st) * 2) + 1];
+			this->stM[0] = '\0';
+			this->str[0] = '\0';
 			for (size_t i = 0; i < this->len; i++)
 			{
-				if (st[i] < 0)
+				if (st[i] == '-')
 					this->stM[i] = st[i];
-				else
-					this->str[i] = st[i];
+				if (st[i - 1] == '-')
+					this->stM[i] = st[i];
+				if (st[i] != '-')
+					if (st[i + 1] >= '0' || st[i + 1] <= '9' && st[i - 1] != '-')
+						this->str[i] = st[i];
 			}
 		}
 		else
@@ -247,8 +274,9 @@ bool BitMyString::boolString(char* st)
 	int len = strlen(st);
 	for (size_t i = 0; i < len; i++)
 	{
-		if (st[i] < '0' || st[i] > '9')
-			return false;
+		if (st[i] != '-')
+			if (st[i] < '0' || st[i] > '9')
+				return false;
 	}
 	return true;
 }
@@ -259,8 +287,9 @@ inline int BitMyString::countM(char* st)
 	int len = strlen(st);
 	for (size_t i = 0; i < len; i++)
 	{
-		if (st[i] < 0)
-			countM++;
+		if (st[i] == '-')
+			if (st[i + 1] >= '0' || st[i + 1] <= '9')
+				countM++;
 	}
 	return countM;
 }
@@ -271,8 +300,8 @@ void addSimbChar(char* s, char elem)
 	{
 		int ln = strlen(s);
 		char* b = new char[ln + 1];
-		b[ln] = elem;
-		s[0] = b[ln];
+		b[ln] = elem; b[ln + 1] = '\0';
+		strcpy(s, b);
 	}
 	else
 	{
@@ -282,38 +311,147 @@ void addSimbChar(char* s, char elem)
 		{
 			b[i] = s[i];
 		}
-		b[ln] = elem;
+		b[ln] = elem; b[ln + 1] = '\0';
 		_strset(s, '\0');
 		strcpy(s, b);
 	}
 
 }
 
-char* BitMyString::transDouble(char* st)
+char* BitMyString::transDouble(char*& st)
 {
 	int len = strlen(st);
-	char* result = new char[80];
-	int k(0);
+	char* result = new char[len + 1];
+	result[0] = '\0';
+	int i(0);
 	while (len)
 	{
-		int i(0);
-		do
+		if (st[i] == '0' || st[i] == '1')
+			addSimbChar(result, st[i]);
+		else
 		{
-			if (st[i] == '0' || st[i] == '1')
-				addSimbChar(result, st[i]);
-			char res = ('0' + (st[i] % 2));
-			if (res == '0' || res == '1')
-				addSimbChar(result, res);
-			st[i] = (int)st[i] / 2;
-			i++;
-		} while (st[i] > 0);
+			char ss = st[i];
+			bool t = true;
+			while (t)
+			{
+				char res = ('0' + (ss % 2));
+				if (res == '0' || res == '1')
+					addSimbChar(result, res);
+				int p = (int(ss) - (int)'0') / 2;
+				ss = ('0' + ss) / 2;
+				if (p == 0)
+					t = false;
+			}
+		}
+		i++;
 		len--;
 	}
-	return result;
+	st = new char[strlen(result) + 1];
+	strcpy(st, result);
+	return st;
+
+}
+
+inline BitMyString BitMyString::operator+(const BitMyString& st)
+{
+	BitMyString newS;
+	newS.len = this->len + st.len;
+	newS.str = new char[newS.len + 1];
+	for (size_t i = 0; i < this->len; i++)
+	{
+		newS.str[i] = this->str[i];
+	}
+	for (size_t i = 0, j = this->len; i < st.len; i++, j++)
+	{
+		newS.str[j] = st.str[i];
+	}
+	newS.str[newS.len] = '\0';
+	this->clear();
+	*this = newS;
+	return *this;
+}
+
+inline BitMyString BitMyString::operator+=(const BitMyString& st)
+{
+	BitMyString newS;
+	newS.len = this->len + st.len;
+	newS.str = new char[newS.len + 1];
+	for (size_t i = 0; i < this->len; i++)
+	{
+		newS.str[i] = this->str[i];
+	}
+	for (size_t i = 0, j = this->len; i < st.len; i++, j++)
+	{
+		newS.str[j] = st.str[i];
+	}
+	newS.str[newS.len] = '\0';
+	this->clear();
+	*this = newS;
+	return *this;
+}
+
+inline bool BitMyString::operator==(const BitMyString& st)
+{
+	if (this->len != st.len)
+		return false;
+	for (size_t i = 0; i < this->len; i++)
+	{
+		if (this->str[i] != st.str[i])
+			return false;
+	}
+	return true;
+}
+
+inline bool BitMyString::operator!=(const BitMyString& st)
+{
+	if (this->len == st.len)
+		return false;
+	for (size_t i = 0; i < this->len; i++)
+	{
+		if (this->str[i] == st.str[i])
+			return false;
+	}
+	return true;
 }
 
 
 inline BitMyString::~BitMyString()
 {
 	delete[]stM;
+	delete[]this->str;
+}
+
+inline BitMyString::BitMyString(const BitMyString& obj)
+{
+	this->len = strlen(obj.str);
+	this->str = new char[this->len + 1];
+	strcpy(this->str, obj.str);
+}
+
+inline BitMyString BitMyString::operator=(const BitMyString& obj)
+{
+	if (this->str != nullptr)
+	{
+		delete[]str;
+	}
+	this->len = strlen(obj.str);
+	this->str = new char[this->len + 1];
+	strcpy(this->str, obj.str);
+	return *this;
+}
+
+inline void BitMyString::print() const
+{
+	cout << "Вывод положительной строки: " << getString() << endl;
+	cout << "Вывод отрицательной строки: " << getStringM() << endl;
+}
+
+inline char* BitMyString::getString() const
+{
+	return this->str;
+}
+
+inline char* BitMyString::getStringM() const
+{
+	return this->stM;
 }
