@@ -147,3 +147,22 @@ do {
 		cout << n << endl;
 	}
 } while (a == INT_MAX || a == INT_MIN);
+
+
+//Принимает ввод только цифр до нажатия интера
+char buff[100] = "", b[10];
+int i = 0;
+unsigned char c;
+
+do
+{
+cout << '\r' << buff;
+c = _getch();
+if (isdigit(c))
+{
+buff[i++] = c;
+buff[i] = '\0';
+}
+
+} while (c != '\r');
+cout << buff << endl;

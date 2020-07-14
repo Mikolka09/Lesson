@@ -106,9 +106,111 @@ int main()
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
+	int a[5] = { 1,2,3,4,5 };
+	ofstream out;
+	out.open("test.txt");
+	for (size_t i = 0; i < 5; i++)
+	{
+		out << a[i] << " ";
+	}
+	out.close();
 
-	BitMyString bst = "-5-1052-1";
-	bst.print();
+	/*int b[5];
+	ifstream in;
+	in.open("test.txt");
+	if (in.is_open())
+	{
+		for (size_t i = 0; i < 5; i++)
+		{
+			in >> b[i];
+		}
+	}
+	in.close();*/
+
+	/*List<int, 100> l;;
+	int b;
+	ifstream in;
+	in.open("test.txt");
+	if (in.is_open())
+	{
+		while (in >> b)
+		{
+			l.push_back(b);
+		}
+		in.close();
+	}
+	l.print();*/
+
+	List<int, 100> l;;
+	char b[80];
+	ifstream in;
+	in.open("test.txt");
+	if (in.is_open())
+	{
+		while (in.getline(b, 80))
+		{
+			cout << b << endl;
+		}
+		in.close();
+	}
+	//l.print();
+
+	fstream o2;
+
+
+	
+	//Поток вывода
+	//cout.setf(ios::boolalpha);//включение флага
+	//cout << true << endl;
+
+	////cout.unsetf(ios::dec);//отключение флага (отключение десятичной системы)
+	////cout.setf(ios::showpos | ios::oct | ios::showbase);//перечесление флагов через побитовый |
+	//cout << 30 << endl;
+	//cout << -30 << endl;
+
+	//cout.setf(ios::left);//равнение по левой стороне
+	//cout.fill('*');//заполняет все пустые клетки символом
+	//cout << setw(10) << 75984 << "85498" << endl;
+
+	//cout << scientific;//экспонициальная форма записи
+	//cout << fixed;//будет использована десятичная запись числа
+	//cout << setprecision(3) << 123.231 << endl;
+
+	//Поток вывода
+	//char buff[10];
+	//cin.getline(buff, 5);//Потоковый ввод с учетом пробелов органичено числом символов
+	//cin >> setw(5) >> buff;//Потоковый ввод с ограничением до пробела или количества введеных
+	//cout << buff << endl;
+	//cout << cin.gcount() << endl;//подсчитывает количество символов
+
+	//char buff[10];
+	/*cin >> setw(3) >> buff;
+	cout << buff << endl;
+	cin.ignore();
+	cin >> setw(3) >> buff;
+	cout << buff << endl;
+	cin.ignore();
+	cin >> buff;
+	cout << buff << endl;*/
+	
+
+	
+
+
+
+
+	/*string f;
+	getline(cin, f);
+	cout << f << endl;*/
+
+
+
+
+
+
+
+	/*BitMyString bst = "125-5-4";
+	bst.print();*/
 
 
 	/*char ss = '5';
