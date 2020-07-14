@@ -7,6 +7,8 @@
 #include<iomanip>
 
 using namespace std;
+using namespace myList;
+
 
 class Protocol
 {
@@ -60,6 +62,8 @@ istream& operator>>(istream& in, Protocol* p)
 	return in;
 }
 
+using namespace myList;
+using namespace myBtreeNode;
 
 class BasePDR
 {

@@ -2,838 +2,931 @@
 #include"MyData.h"
 #include<Windows.h>
 #include<iostream>
+#include"MyException.h"
+
 
 using namespace std;
 
-
-
-void gotoxy(int x, int y)
+namespace myWorks
 {
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-template<class T, int size>
-class List
-{
-	MyData<T>* first = nullptr;
-	MyData<T>* last = nullptr;
-	int length = 0;
-public:
-	~List();
-	List<T, size>();
-	List<T, size>(const List<T, size>& obj);//конструктор копирования
-	void push_front(T val);
-	void push_back(T val);
-	void push_at(T val, int pos);
-	T pop_front();
-	T pop_back();
-	T pop_at(int pos);
-	T operator[](int pos);
-	T peek_front();
-	T peek_back();
-	T peek_at(int pos) const;
-	int getSize();
-	bool ifEmpty();
-	bool isFull();
-	void print();
-	void print(int x, int y);
-	void clear();
-	List<T, size> operator+(const List<T, size>& l);
-	List<T, size> operator=(const List<T, size>& l);
-	List<T, size> operator*(const List<T, size>& l);
-	void sort();
-	void sort_revers();
-	friend ostream& operator<<(ostream& out, const List<T, size>& l);
-
-};
-
-template<class T, int size>
-ostream& operator<<(ostream& out, const List<T, size>& l)
-{
-	l.print();
-	return out;
-}
-
-template<class T, int size>
-inline List<T, size>::~List()
-{
-	clear();
-}
-
-template<class T, int size>
-inline List<T, size>::List()
-{
-	MyData<T>* first = nullptr;
-	MyData<T>* last = nullptr;
-	int length = 0;
-}
-
-template<class T, int size>
-inline List<T, size>::List(const List<T, size>& obj)
-{
-	if (length)
+	namespace myList
 	{
-		clear();
-	}
-	MyData<T>* first = obj.first;
-	MyData<T>* last = obj.last;
-	int length = obj.length;
-	for (size_t i = 0; i < length; i++)
-	{
-		this->push_back(first->value);
-		first = first->next;
-	}
-}
 
-template<class T, int size>
-inline void List<T, size>::push_front(T val)
-{
-	if (length < size)
-	{
-		throw MyException(SIZE_FULL);
-		if (length == 0)
+
+
+		template<class T, int size>
+		class List
 		{
-			first = new MyData<T>;
-			first->value = val;
-			last = first;
-		}
-		else
-		{
-			MyData<T>* temp = new MyData<T>;
-			temp->value = val;
-			temp->next = first;
-			first = temp;
-		}
-		length++;
-	}
-	else
-		cout << "List overflow!" << endl;
-}
+			MyData<T>* first = nullptr;
+			MyData<T>* last = nullptr;
+			int length = 0;
+		public:
+			~List();
+			List<T, size>();
+			List<T, size>(const List<T, size>& obj);//конструктор копирования
 
-template<class T, int size>
-inline void List<T, size>::push_back(T val)
-{
-	if (length < size)
-	{
-		if (length == 0)
-		{
-			first = new MyData<T>;
-			first->value = val;
-			last = first;
-		}
-		else
-		{
-			MyData<T>* temp = new MyData<T>;
-			temp->value = val;
-			last->next = temp;
-			last = temp;
-		}
-		length++;
-	}
-}
+			void gotoxy(int x, int y)
+			{
+				COORD coord;
+				coord.X = x;
+				coord.Y = y;
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+			}
 
-template<class T, int size>
-inline void List<T, size>::push_at(T val, int pos)
-{
-	if (pos == 0)
-		push_front(val);
-	else
-	{
-		if (pos == length - 1)
-			push_back(val);
-		else
+			void push_front(T val);
+			void push_back(T val);
+			void push_at(T val, int pos);
+			T pop_front();
+			T pop_back();
+			T pop_at(int pos);
+			T operator[](int pos);
+			T peek_front();
+			T peek_back();
+			T peek_at(int pos) const;
+			int getSize();
+			bool ifEmpty();
+			bool isFull();
+			void print();
+			void print(int x, int y);
+			void clear();
+			List<T, size> operator+(const List<T, size>& l);
+			List<T, size> operator=(const List<T, size>& l);
+			List<T, size> operator*(const List<T, size>& l);
+			void sort();
+			void sort_revers();
+			friend ostream& operator<<(ostream& out, const List<T, size>& l);
+
+		};
+
+		template<class T, int size>
+		ostream& operator<<(ostream& out, const List<T, size>& l)
+		{
+			l.print();
+			return out;
+		}
+
+		template<class T, int size>
+		inline List<T, size>::~List()
+		{
+			clear();
+		}
+
+		template<class T, int size>
+		inline List<T, size>::List()
+		{
+			MyData<T>* first = nullptr;
+			MyData<T>* last = nullptr;
+			int length = 0;
+		}
+
+		template<class T, int size>
+		inline List<T, size>::List(const List<T, size>& obj)
+		{
+			if (length)
+			{
+				clear();
+			}
+			MyData<T>* first = obj.first;
+			if (!first)
+				throw MyListException::NULLPTR;
+			MyData<T>* last = obj.last;
+			if (!last)
+				throw MyListException::NULLPTR;
+			int length = obj.length;
+			for (size_t i = 0; i < length; i++)
+			{
+				this->push_back(first->value);
+				first = first->next;
+			}
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::push_front(T val)
 		{
 			if (length < size)
 			{
-				MyData<T>* temp = new MyData<T>;
-				temp->value = val;
-				MyData<T>* num = first;
-				for (size_t i = 0; i < pos - 1; i++)
+				if (length == 0)
 				{
-					num = num->next;
-				}
-				temp->next = num->next;
-				num->next = temp;
-				length++;
-			}
-			else
-				cout << "List overflow" << endl;
-		}
-	}
-}
-
-template<class T, int size>
-inline T List<T, size>::pop_front()
-{
-	if (length)
-	{
-		MyData<T>* temp = first;
-		first = first->next;
-		T val = temp->value;
-		delete temp;
-		length--;
-		return val;
-	}
-	else
-		cout << "List Empty" << endl;
-}
-
-template<class T, int size>
-inline T List<T, size>::pop_back()
-{
-	MyData<T>* temp = first;
-	T val = last->value;
-	for (size_t i = 0; i < length - 2; i++)
-	{
-		temp = temp->next;
-	}
-	delete last;
-	last = temp;
-	last->next = nullptr;
-	length--;
-	return val;
-}
-
-template<class T, int size>
-inline T List<T, size>::pop_at(int pos)
-{
-	if (pos == 0)
-		pop_front();
-	else
-	{
-		if (pos == length - 1)
-			pop_back();
-		else
-		{
-			MyData<T>* temp = first;
-			for (size_t i = 0; i < pos - 1; i++)
-			{
-				temp = temp->next;
-			}
-			MyData<T>* num = temp->next;
-			T val = num->value;
-			temp->next = num->next;
-			delete num;
-			length--;
-			return val;
-		}
-	}
-
-}
-
-template<class T, int size>
-inline T List<T, size>::operator[](int pos)
-{
-	if (pos >= 0 && pos < length)
-		throw MyException(INVALID_INDEX);
-	MyData<T>* temp = first;
-	for (size_t i = 0; i < pos; i++)
-	{
-		temp = temp->next;
-	}
-	return temp->value;
-
-}
-
-template<class T, int size>
-inline T List<T, size>::peek_front()
-{
-	return first->value;
-}
-
-template<class T, int size>
-inline T List<T, size>::peek_back()
-{
-	return last->value;
-}
-
-template<class T, int size>
-inline T List<T, size>::peek_at(int pos) const
-{
-	if (pos >= 0 && pos < length)
-	{
-		MyData<T>* temp = first;
-		for (size_t i = 0; i < pos; i++)
-		{
-			temp = temp->next;
-		}
-		return temp->value;
-	}
-	return last->value;
-}
-
-template<class T, int size>
-inline int List<T, size>::getSize()
-{
-	return length;
-}
-
-template<class T, int size>
-inline bool List<T, size>::ifEmpty()
-{
-	return length == 0;
-}
-
-template<class T, int size>
-inline bool List<T, size>::isFull()
-{
-	return length == size;
-}
-
-template<class T, int size>
-inline void List<T, size>::print()
-{
-	/*if (length == 0)
-	{
-		cout << "List empty" << endl;
-		return;
-	}
-	*/
-	MyData<T>* temp = first;
-	if (!temp)
-		throw MyException(NULLPTR);
-	while (temp)
-	{
-		cout << temp->value << " ";
-		temp = temp->next;
-	}
-	cout << endl;
-}
-
-template<class T, int size>
-inline void List<T, size>::print(int x, int y)
-{
-	int y1 = y;
-	gotoxy(x, y1);
-	int begin = (length < 10) ? 0 : length - 10;
-	for (size_t i = begin; i < length; i++)
-	{
-		gotoxy(x, y1);
-		cout << this->operator[](i);
-		y1++;
-	}
-}
-
-template<class T, int size>
-inline void List<T, size>::clear()
-{
-	while (length)
-	{
-		pop_front();
-	}
-	first = last = nullptr;
-	cout << "List cleared!" << endl;
-}
-
-template<class T, int size>
-inline List<T, size> List<T, size>::operator+(const List<T, size>& l)
-{
-	List<T, 10> newL;
-	MyData<T>* temp = this->first;
-	MyData<T>* temp1 = l.first;
-	for (size_t i = 0; i < this->length; i++)
-	{
-		newL.push_back(temp->value);
-		temp = temp->next;
-	}
-	for (size_t i = 0; i < l.length; i++)
-	{
-		newL.push_back(temp1->value);
-		temp1 = temp1->next;
-	}
-	l.~List();
-	this->clear();
-	*this = newL;
-	return *this;
-}
-
-template<class T, int size>
-inline List<T, size> List<T, size>::operator=(const List<T, size>& obj)
-{
-	if (length)
-	{
-		clear();
-	}
-	MyData<T>* first = obj.first;
-	MyData<T>* last = obj.last;
-	int length = obj.length;
-	for (size_t i = 0; i < length; i++)
-	{
-		this->push_back(first->value);
-		first = first->next;
-	}
-	return *this;
-}
-
-template<class T, int size>
-inline List<T, size> List<T, size>::operator*(const List<T, size>& l)
-{
-	List<T, 10> temp;
-	int val = 0;
-	for (size_t i = 0; i < this->length; i++)
-	{
-		for (size_t j = 0; j < l.length; j++)
-		{
-			if (this->peek_at(i) == l.peek_at(j))
-			{
-				val = l.peek_at(j);
-				temp.push_front(val);
-			}
-
-		}
-	}
-	this->clear();
-	*this = temp;
-	return *this;
-}
-
-template<class T, int size>
-inline void List<T, size>::sort()
-{
-	List<T, 10> temp;
-	while (length)
-	{
-		int i = 0;
-		int max = this->peek_at(0);
-		int imax = 0;
-		for (size_t j = i + 1; j < length; j++)
-		{
-			if (this->peek_at(j) > max)
-			{
-				max = this->peek_at(j);
-				imax = j;
-			}
-			i++;
-		}
-		temp.push_front(max);
-		this->pop_at(imax);
-	}
-	this->clear();
-	*this = temp;
-}
-
-template<class T, int size>
-inline void List<T, size>::sort_revers()
-{
-	List<T, 10> temp;
-	while (length)
-	{
-		int i = 0;
-		int min = this->peek_at(0);
-		int imin = 0;
-		for (size_t j = i + 1; j < length; j++)
-		{
-			if (this->peek_at(j) < min)
-			{
-				min = this->peek_at(j);
-				imin = j;
-			}
-			i++;
-		}
-		temp.push_front(min);
-		this->pop_at(imin);
-	}
-	this->clear();
-	*this = temp;
-}
-
-
-//////ДВУСВЯЗНЫЙ СПИСОК////////////
-
-
-template<class T, int size>
-class ForwardList
-{
-	MyData<T>* first = nullptr;
-	MyData<T>* last = nullptr;
-	int length = 0;
-
-public:
-	~ForwardList() { }//clear(); }
-	void push_front(T val);
-	void push_back(T val);
-	void push_at(T val, int pos);
-	T pop_front();
-	T pop_back();
-	T pop_at(int pos);
-	T operator[](int pos);
-	T peek_front();
-	T peek_back();
-	T peek_at(int pos) const;
-	int getSize();
-	bool isEmpty();
-	bool isFull();
-	void print();
-	void print_reverse();
-	void clear();
-	ForwardList<T, size> operator+(const ForwardList<T, size>& l);
-	ForwardList<T, size> operator*(const ForwardList<T, size>& l);
-	void sort();
-	void sort_revers();
-};
-
-template<class T, int size>
-inline void ForwardList<T, size>::push_front(T val)
-{
-	if (length < size)
-	{
-		if (!length)
-		{
-			first = last = new MyData<T>;
-			first->value = val;
-		}
-		else
-		{
-			MyData<T>* temp = new MyData<T>;
-			temp->value = val;
-			temp->next = first;
-			first->prev = temp;
-			first = temp;
-		}
-		length++;
-	}
-	else
-		cout << "List overflow" << endl;
-}
-
-template<class T, int size>
-inline void ForwardList<T, size>::push_back(T val)
-{
-	if (length < size)
-	{
-		if (!length)
-		{
-			first = last = new MyData<T>;
-			first->value - val;
-		}
-		else
-		{
-			MyData<T>* temp = new MyData<T>;
-			temp->value = val;
-			last->next = temp;
-			temp->prev = last;
-			last = temp;
-		}
-		length++;
-	}
-	else
-		cout << "List overflow" << endl;
-}
-
-template<class T, int size>
-inline void ForwardList<T, size>::push_at(T val, int pos)
-{
-	if (length < size)
-	{
-		if (pos == 0)
-			push_front(val);
-		else
-		{
-			if (pos == length)
-				push_back(val);
-			else
-			{
-				MyData<T>* temp = new MyData<T>;
-				temp->value = val;
-				MyData<T>* num;
-				if (pos <= length / 2)
-				{
-					num = first;
-					for (size_t i = 0; i < pos - 1; i++)
-					{
-						num = num->next;
-
-					}
+					first = new MyData<T>;
+					if (!first)
+						throw MyListException::NULLPTR;
+					first->value = val;
+					last = first;
 				}
 				else
 				{
-					num = last;
-					for (size_t i = 0; i < length - pos; i++)
-					{
-						num = num->prev;
-					}
+					MyData<T>* temp = new MyData<T>;
+					if (!temp)
+						throw MyListException::NULLPTR;
+					temp->value = val;
+					temp->next = first;
+					first = temp;
 				}
-				temp->next = num->next;
-				temp->next->prev = temp;
-				num->next = temp;
-				temp->prev = num;
 				length++;
-
 			}
-		}
-	}
-	else
-		cout << "List overflow" << endl;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::pop_front()
-{
-	if (length)
-	{
-		MyData<T>* temp = first;
-		T val = first->value;
-		if (length > 1)
-			first->next->prev = nullptr;
-		first = first->next;
-		delete temp;
-		length--;
-		return val;
-	}
-	else
-		cout << "List Empty" << endl;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::pop_back()
-{
-	if (length)
-	{
-		MyData<T>* temp = last;
-		T val = last->value;
-		last->prev->next = nullptr;
-		last = last->prev;
-		delete temp;
-		length--;
-		return val;
-	}
-	else
-		cout << "List Empty" << endl;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::pop_at(int pos)
-{
-	if (length)
-	{
-		if (pos == 0)
-			pop_front();
-		else
-		{
-			if (pos == length - 1)
-				pop_back();
 			else
+				throw MyListException::SIZE_FULL;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::push_back(T val)
+		{
+			if (length < size)
 			{
-				T val;
-				MyData<T>* num, *temp;
-				if (pos <= length / 2)
+				if (length == 0)
 				{
-					num = first;
-					for (size_t i = 0; i < pos - 1; i++)
-					{
-						num = num->next;
-					}
+					first = new MyData<T>;
+					if (!first)
+						throw MyListException::NULLPTR;
+					first->value = val;
+					last = first;
 				}
 				else
 				{
-					num = last;
-					for (size_t i = 0; i < length - pos; i++)
-					{
-						num = num->prev;
-					}
+					MyData<T>* temp = new MyData<T>;
+					if (!temp)
+						throw MyListException::NULLPTR;
+					temp->value = val;
+					last->next = temp;
+					last = temp;
 				}
-				temp = num->next;
-				val = temp->value;
-				num->next = temp->next;
-				temp->next->prev = num;
+				length++;
+			}
+			else
+				throw MyListException::SIZE_FULL;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::push_at(T val, int pos)
+		{
+			if (pos == 0)
+				push_front(val);
+			else
+			{
+				if (pos == length - 1)
+					push_back(val);
+				else
+				{
+					if (length < size)
+					{
+						MyData<T>* temp = new MyData<T>;
+						if (!temp)
+							throw MyListException::NULLPTR;
+						temp->value = val;
+						MyData<T>* num = first;
+						if (!num)
+							throw MyListException::NULLPTR;
+						for (size_t i = 0; i < pos - 1; i++)
+						{
+							num = num->next;
+						}
+						temp->next = num->next;
+						num->next = temp;
+						length++;
+					}
+					else
+						throw MyListException::SIZE_FULL;
+				}
+			}
+		}
+
+		template<class T, int size>
+		inline T List<T, size>::pop_front()
+		{
+			if (length)
+			{
+				MyData<T>* temp = first;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				first = first->next;
+				T val = temp->value;
 				delete temp;
 				length--;
 				return val;
 			}
+			else
+				throw MyListException::SIZE_EMPTY;
 		}
-	}
-	else
-		cout << "List Empty" << endl;
-}
 
-template<class T, int size>
-inline T ForwardList<T, size>::operator[](int pos)
-{
-	if (pos >= 0 && pos < length)
-	{
-		MyData<T>* temp = first;
-		for (size_t i = 0; i < pos; i++)
+		template<class T, int size>
+		inline T List<T, size>::pop_back()
 		{
-			temp = temp->next;
-		}
-		return temp->value;
-	}
-	return last->value;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::peek_front()
-{
-	return first->value;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::peek_back()
-{
-	return last->value;
-}
-
-template<class T, int size>
-inline T ForwardList<T, size>::peek_at(int pos) const
-{
-	if (pos >= 0 && pos < length)
-	{
-		MyData<T>* temp = first;
-		for (size_t i = 0; i < pos; i++)
-		{
-			temp = temp->next;
-		}
-		return temp->value;
-	}
-	return last->value;
-}
-
-template<class T, int size>
-inline int ForwardList<T, size>::getSize()
-{
-	return length;
-}
-
-template<class T, int size>
-inline bool ForwardList<T, size>::isEmpty()
-{
-	return length == 0;
-}
-
-template<class T, int size>
-inline bool ForwardList<T, size>::isFull()
-{
-	return length == size;
-}
-
-template<class T, int size>
-inline void ForwardList<T, size>::print()
-{
-	if (length == 0)
-	{
-		cout << "List empty" << endl;
-		return;
-	}
-	MyData<T>* temp = first;
-	while (temp)
-	{
-		cout << temp->value << " ";
-		temp = temp->next;
-	}
-	cout << endl;
-}
-
-template<class T, int size>
-inline void ForwardList<T, size>::print_reverse()
-{
-	if (length == 0)
-	{
-		cout << "List empty" << endl;
-		return;
-	}
-	MyData<T>* temp = last;
-	while (temp)
-	{
-		cout << temp->value << " ";
-		temp = temp->prev;
-	}
-	cout << endl;
-}
-
-template<class T, int size>
-inline void ForwardList<T, size>::clear()
-{
-	while (length)
-	{
-		pop_front();
-	}
-	first = last = nullptr;
-	cout << "List cleared!" << endl;
-}
-
-template<class T, int size>
-inline ForwardList<T, size> ForwardList<T, size>::operator+(const ForwardList<T, size>& l)
-{
-	MyData<T>* temp = last;
-	this->last->next = l.first;
-	l.first->prev = temp;
-	this->last = l.last;
-	this->length += l.length;
-	return *this;
-}
-
-template<class T, int size>
-inline ForwardList<T, size> ForwardList<T, size>::operator*(const ForwardList<T, size>& l)
-{
-	ForwardList<T, 5> temp;
-	int val = 0;
-	for (size_t i = 0; i < this->length; i++)
-	{
-		for (size_t j = 0; j < l.length; j++)
-		{
-			if (this->peek_at(i) == l.peek_at(j))
+			MyData<T>* temp = first;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			T val = last->value;
+			for (size_t i = 0; i < length - 2; i++)
 			{
-				val = l.peek_at(j);
-				temp.push_front(val);
+				temp = temp->next;
+			}
+			delete last;
+			last = temp;
+			last->next = nullptr;
+			length--;
+			return val;
+		}
+
+		template<class T, int size>
+		inline T List<T, size>::pop_at(int pos)
+		{
+			if (pos == 0)
+				pop_front();
+			else
+			{
+				if (pos == length - 1)
+					pop_back();
+				else
+				{
+					MyData<T>* temp = first;
+					if (!temp)
+						throw MyListException::NULLPTR;
+					for (size_t i = 0; i < pos - 1; i++)
+					{
+						temp = temp->next;
+					}
+					MyData<T>* num = temp->next;
+					if (!num)
+						throw MyListException::NULLPTR;
+					T val = num->value;
+					temp->next = num->next;
+					delete num;
+					length--;
+					return val;
+				}
 			}
 
 		}
-	}
-	this->clear();
-	*this = temp;
-	return *this;
-}
 
-template<class T, int size>
-inline void ForwardList<T, size>::sort()
-{
-	ForwardList<T, 5> temp;
-	while (length)
-	{
-		int i = 0;
-		int max = this->peek_at(0);
-		int imax = 0;
-		for (size_t j = i + 1; j < length; j++)
+		template<class T, int size>
+		inline T List<T, size>::operator[](int pos)
 		{
-			if (this->peek_at(j) > max)
+			if (pos >= 0 && pos < length)
+				throw MyListException::INVALID_INDEX;
+			MyData<T>* temp = first;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			for (size_t i = 0; i < pos; i++)
 			{
-				max = this->peek_at(j);
-				imax = j;
+				temp = temp->next;
 			}
-			i++;
-		}
-		temp.push_front(max);
-		this->pop_at(imax);
-	}
-	this->clear();
-	*this = temp;
-}
+			return temp->value;
 
-template<class T, int size>
-inline void ForwardList<T, size>::sort_revers()
-{
-	ForwardList<T, 5> temp;
-	while (length)
-	{
-		int i = 0;
-		int min = this->peek_at(0);
-		int imin = 0;
-		for (size_t j = i + 1; j < length; j++)
-		{
-			if (this->peek_at(j) < min)
-			{
-				min = this->peek_at(j);
-				imin = j;
-			}
-			i++;
 		}
-		temp.push_front(min);
-		this->pop_at(imin);
+
+		template<class T, int size>
+		inline T List<T, size>::peek_front()
+		{
+			return first->value;
+		}
+
+		template<class T, int size>
+		inline T List<T, size>::peek_back()
+		{
+			return last->value;
+		}
+
+		template<class T, int size>
+		inline T List<T, size>::peek_at(int pos) const
+		{
+			if (pos >= 0 && pos < length)
+			{
+				throw MyListException::INVALID_INDEX;
+				MyData<T>* temp = first;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				for (size_t i = 0; i < pos; i++)
+				{
+					temp = temp->next;
+				}
+				return temp->value;
+			}
+			return last->value;
+		}
+
+		template<class T, int size>
+		inline int List<T, size>::getSize()
+		{
+			return length;
+		}
+
+		template<class T, int size>
+		inline bool List<T, size>::ifEmpty()
+		{
+			return length == 0;
+		}
+
+		template<class T, int size>
+		inline bool List<T, size>::isFull()
+		{
+			return length == size;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::print()
+		{
+			if (length == 0)
+			{
+				throw MyListException::SIZE_EMPTY;
+			}
+			MyData<T>* temp = first;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (temp)
+			{
+				cout << temp->value << " ";
+				temp = temp->next;
+			}
+			cout << endl;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::print(int x, int y)
+		{
+			int y1 = y;
+			gotoxy(x, y1);
+			int begin = (length < 10) ? 0 : length - 10;
+			for (size_t i = begin; i < length; i++)
+			{
+				gotoxy(x, y1);
+				cout << this->operator[](i);
+				y1++;
+			}
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::clear()
+		{
+			while (length)
+			{
+				pop_front();
+			}
+			first = last = nullptr;
+			cout << "List cleared!" << endl;
+		}
+
+		template<class T, int size>
+		inline List<T, size> List<T, size>::operator+(const List<T, size>& l)
+		{
+			List<T, 10> newL;
+			if (!newL)
+				throw MyListException::NULLPTR;
+			MyData<T>* temp = this->first;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			MyData<T>* temp1 = l.first;
+			if (!temp1)
+				throw MyListException::NULLPTR;
+			for (size_t i = 0; i < this->length; i++)
+			{
+				newL.push_back(temp->value);
+				temp = temp->next;
+			}
+			for (size_t i = 0; i < l.length; i++)
+			{
+				newL.push_back(temp1->value);
+				temp1 = temp1->next;
+			}
+			l.~List();
+			this->clear();
+			*this = newL;
+			return *this;
+		}
+
+		template<class T, int size>
+		inline List<T, size> List<T, size>::operator=(const List<T, size>& obj)
+		{
+			if (length)
+			{
+				clear();
+			}
+			MyData<T>* first = obj.first;
+			if (!first)
+				throw MyListException::NULLPTR;
+			MyData<T>* last = obj.last;
+			if (!last)
+				throw MyListException::NULLPTR;
+			int length = obj.length;
+			for (size_t i = 0; i < length; i++)
+			{
+				this->push_back(first->value);
+				first = first->next;
+			}
+			return *this;
+		}
+
+		template<class T, int size>
+		inline List<T, size> List<T, size>::operator*(const List<T, size>& l)
+		{
+			List<T, 10> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			int val = 0;
+			for (size_t i = 0; i < this->length; i++)
+			{
+				for (size_t j = 0; j < l.length; j++)
+				{
+					if (this->peek_at(i) == l.peek_at(j))
+					{
+						val = l.peek_at(j);
+						temp.push_front(val);
+					}
+
+				}
+			}
+			this->clear();
+			*this = temp;
+			return *this;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::sort()
+		{
+			List<T, 10> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (length)
+			{
+				int i = 0;
+				int max = this->peek_at(0);
+				int imax = 0;
+				for (size_t j = i + 1; j < length; j++)
+				{
+					if (this->peek_at(j) > max)
+					{
+						max = this->peek_at(j);
+						imax = j;
+					}
+					i++;
+				}
+				temp.push_front(max);
+				this->pop_at(imax);
+			}
+			this->clear();
+			*this = temp;
+		}
+
+		template<class T, int size>
+		inline void List<T, size>::sort_revers()
+		{
+			List<T, 10> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (length)
+			{
+				int i = 0;
+				int min = this->peek_at(0);
+				int imin = 0;
+				for (size_t j = i + 1; j < length; j++)
+				{
+					if (this->peek_at(j) < min)
+					{
+						min = this->peek_at(j);
+						imin = j;
+					}
+					i++;
+				}
+				temp.push_front(min);
+				this->pop_at(imin);
+			}
+			this->clear();
+			*this = temp;
+		}
+
 	}
-	this->clear();
-	*this = temp;
+
+
+	//////ДВУСВЯЗНЫЙ СПИСОК////////////
+
+	namespace myForwardList
+	{
+
+		template<class T, int size>
+		class ForwardList
+		{
+			MyData<T>* first = nullptr;
+			MyData<T>* last = nullptr;
+			int length = 0;
+
+		public:
+			~ForwardList() { }//clear(); }
+			void push_front(T val);
+			void push_back(T val);
+			void push_at(T val, int pos);
+			T pop_front();
+			T pop_back();
+			T pop_at(int pos);
+			T operator[](int pos);
+			T peek_front();
+			T peek_back();
+			T peek_at(int pos) const;
+			int getSize();
+			bool isEmpty();
+			bool isFull();
+			void print();
+			void print_reverse();
+			void clear();
+			ForwardList<T, size> operator+(const ForwardList<T, size>& l);
+			ForwardList<T, size> operator*(const ForwardList<T, size>& l);
+			void sort();
+			void sort_revers();
+		};
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::push_front(T val)
+		{
+			if (length < size)
+			{
+				if (!length)
+				{
+					first = last = new MyData<T>;
+					if (!first && !last)
+						throw MyListException::NULLPTR;
+					first->value = val;
+				}
+				else
+				{
+					MyData<T>* temp = new MyData<T>;
+					if (!temp)
+						throw MyListException::NULLPTR;
+					temp->value = val;
+					temp->next = first;
+					first->prev = temp;
+					first = temp;
+				}
+				length++;
+			}
+			else
+				throw MyListException::SIZE_FULL;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::push_back(T val)
+		{
+			if (length < size)
+			{
+				if (!length)
+				{
+					first = last = new MyData<T>;
+					if (!first && !last)
+						throw MyListException::NULLPTR;
+					first->value - val;
+				}
+				else
+				{
+					MyData<T>* temp = new MyData<T>;
+					if (!temp)
+						throw MyListException::NULLPTR;
+					temp->value = val;
+					last->next = temp;
+					temp->prev = last;
+					last = temp;
+				}
+				length++;
+			}
+			else
+				throw MyListException::SIZE_FULL;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::push_at(T val, int pos)
+		{
+			if (length < size)
+			{
+				if (pos == 0)
+					push_front(val);
+				else
+				{
+					if (pos == length)
+						push_back(val);
+					else
+					{
+						MyData<T>* temp = new MyData<T>;
+						if (!temp)
+							throw MyListException::NULLPTR;
+						temp->value = val;
+						MyData<T>* num;
+						if (!num)
+							throw MyListException::NULLPTR;
+						if (pos <= length / 2)
+						{
+							num = first;
+							for (size_t i = 0; i < pos - 1; i++)
+							{
+								num = num->next;
+
+							}
+						}
+						else
+						{
+							num = last;
+							for (size_t i = 0; i < length - pos; i++)
+							{
+								num = num->prev;
+							}
+						}
+						temp->next = num->next;
+						temp->next->prev = temp;
+						num->next = temp;
+						temp->prev = num;
+						length++;
+
+					}
+				}
+			}
+			else
+				throw MyListException::SIZE_FULL;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::pop_front()
+		{
+			if (length)
+			{
+				MyData<T>* temp = first;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				T val = first->value;
+				if (length > 1)
+					first->next->prev = nullptr;
+				first = first->next;
+				delete temp;
+				length--;
+				return val;
+			}
+			else
+				throw MyListException::SIZE_EMPTY;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::pop_back()
+		{
+			if (length)
+			{
+				MyData<T>* temp = last;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				T val = last->value;
+				last->prev->next = nullptr;
+				last = last->prev;
+				delete temp;
+				length--;
+				return val;
+			}
+			else
+				throw MyListException::SIZE_EMPTY;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::pop_at(int pos)
+		{
+			if (length)
+			{
+				if (pos == 0)
+					pop_front();
+				else
+				{
+					if (pos == length - 1)
+						pop_back();
+					else
+					{
+						T val;
+						MyData<T>* num, * temp;
+						if (!num)
+							throw MyListException::NULLPTR;
+						if (pos <= length / 2)
+						{
+							num = first;
+							for (size_t i = 0; i < pos - 1; i++)
+							{
+								num = num->next;
+							}
+						}
+						else
+						{
+							num = last;
+							for (size_t i = 0; i < length - pos; i++)
+							{
+								num = num->prev;
+							}
+						}
+						temp = num->next;
+						val = temp->value;
+						num->next = temp->next;
+						temp->next->prev = num;
+						delete temp;
+						length--;
+						return val;
+					}
+				}
+			}
+			else
+				throw MyListException::SIZE_EMPTY;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::operator[](int pos)
+		{
+			if (pos >= 0 && pos < length)
+			{
+				throw MyListException::INVALID_INDEX;
+				MyData<T>* temp = first;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				for (size_t i = 0; i < pos; i++)
+				{
+					temp = temp->next;
+				}
+				return temp->value;
+			}
+			return last->value;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::peek_front()
+		{
+			return first->value;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::peek_back()
+		{
+			return last->value;
+		}
+
+		template<class T, int size>
+		inline T ForwardList<T, size>::peek_at(int pos) const
+		{
+			if (pos >= 0 && pos < length)
+			{
+				throw MyListException::INVALID_INDEX;
+				MyData<T>* temp = first;
+				if (!temp)
+					throw MyListException::NULLPTR;
+				for (size_t i = 0; i < pos; i++)
+				{
+					temp = temp->next;
+				}
+				return temp->value;
+			}
+			return last->value;
+		}
+
+		template<class T, int size>
+		inline int ForwardList<T, size>::getSize()
+		{
+			return length;
+		}
+
+		template<class T, int size>
+		inline bool ForwardList<T, size>::isEmpty()
+		{
+			return length == 0;
+		}
+
+		template<class T, int size>
+		inline bool ForwardList<T, size>::isFull()
+		{
+			return length == size;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::print()
+		{
+			if (length == 0)
+			{
+				throw MyListException::SIZE_EMPTY;
+			}
+			MyData<T>* temp = first;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (temp)
+			{
+				cout << temp->value << " ";
+				temp = temp->next;
+			}
+			cout << endl;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::print_reverse()
+		{
+			if (length == 0)
+			{
+				throw MyListException::SIZE_EMPTY;
+			}
+			MyData<T>* temp = last;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (temp)
+			{
+				cout << temp->value << " ";
+				temp = temp->prev;
+			}
+			cout << endl;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::clear()
+		{
+			while (length)
+			{
+				pop_front();
+			}
+			first = last = nullptr;
+			cout << "List cleared!" << endl;
+		}
+
+		template<class T, int size>
+		inline ForwardList<T, size> ForwardList<T, size>::operator+(const ForwardList<T, size>& l)
+		{
+			MyData<T>* temp = last;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			this->last->next = l.first;
+			l.first->prev = temp;
+			this->last = l.last;
+			this->length += l.length;
+			return *this;
+		}
+
+		template<class T, int size>
+		inline ForwardList<T, size> ForwardList<T, size>::operator*(const ForwardList<T, size>& l)
+		{
+			ForwardList<T, 5> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			int val = 0;
+			for (size_t i = 0; i < this->length; i++)
+			{
+				for (size_t j = 0; j < l.length; j++)
+				{
+					if (this->peek_at(i) == l.peek_at(j))
+					{
+						val = l.peek_at(j);
+						temp.push_front(val);
+					}
+
+				}
+			}
+			this->clear();
+			*this = temp;
+			return *this;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::sort()
+		{
+			ForwardList<T, 5> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (length)
+			{
+				int i = 0;
+				int max = this->peek_at(0);
+				int imax = 0;
+				for (size_t j = i + 1; j < length; j++)
+				{
+					if (this->peek_at(j) > max)
+					{
+						max = this->peek_at(j);
+						imax = j;
+					}
+					i++;
+				}
+				temp.push_front(max);
+				this->pop_at(imax);
+			}
+			this->clear();
+			*this = temp;
+		}
+
+		template<class T, int size>
+		inline void ForwardList<T, size>::sort_revers()
+		{
+			ForwardList<T, 5> temp;
+			if (!temp)
+				throw MyListException::NULLPTR;
+			while (length)
+			{
+				int i = 0;
+				int min = this->peek_at(0);
+				int imin = 0;
+				for (size_t j = i + 1; j < length; j++)
+				{
+					if (this->peek_at(j) < min)
+					{
+						min = this->peek_at(j);
+						imin = j;
+					}
+					i++;
+				}
+				temp.push_front(min);
+				this->pop_at(imin);
+			}
+			this->clear();
+			*this = temp;
+		}
+	}
+
 }
 
