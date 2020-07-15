@@ -6,9 +6,10 @@
 #include<fstream>
 #include<iomanip>
 
-using namespace std;
-using namespace myList;
 
+using namespace myWorks::myList;
+using namespace myWorks::myBtree;
+using namespace std;
 
 class Protocol
 {
@@ -38,6 +39,8 @@ public:
 	friend ostream& operator<<(ostream& out, const Protocol* p);
 	friend istream& operator>>(istream& in, const Protocol& p);
 	friend istream& operator>>(istream& in, Protocol* p);
+	friend ofstream& operator<<(ofstream& out, const Protocol& p);//для сохранения в текстовый фаил
+	friend ifstream& operator>>(ifstream& in, Protocol* p);//для выгрузки из фаила
 };
 
 ostream& operator<<(ostream& out, const Protocol& p)
@@ -62,9 +65,6 @@ istream& operator>>(istream& in, Protocol* p)
 	return in;
 }
 
-using namespace myList;
-using namespace myBtreeNode;
-
 class BasePDR
 {
 	List<Protocol*, 100> protocols;//список протоколов
@@ -83,7 +83,7 @@ public:
 
 void BasePDR::menu()
 {
-	load();
+	//load();
 	do
 	{
 		system("cls");
@@ -229,40 +229,52 @@ inline void BasePDR::payProtocol()
 	}
 }
 
+//inline void BasePDR::save()
+//{
+//	ofstream fout("Base.bin", ios::binary | ios::out);
+//	if (fout.is_open())
+//	{
+//		int length = protocols.getSize();
+//		Protocol* prot = new Protocol;
+//		fout.write((char*)&length, sizeof(int));
+//		while (length != 0)
+//		{
+//			prot = protocols.pop_front();
+//			fout.write((char*)&prot, sizeof(Protocol));
+//			length--;
+//		}
+//	}
+//	fout.close();
+//}
+
 inline void BasePDR::save()
 {
-	ofstream fout("Base.bin", ios::binary | ios::out);
-	if (fout.is_open())
+	ofstream fout("Base.txt", ios::binary | ios::out);
+	int length = protocols.getSize();
+	for (size_t i = 0; i < length; i++)
 	{
-		int length = protocols.getSize();
-		Protocol* prot = new Protocol;
-		fout.write((char*)&length, sizeof(int));
-		while (length != 0)
-		{
-			prot = protocols.pop_front();
-			fout.write((char*)&prot, sizeof(Protocol));
-			length--;
-		}
+		out << setw(10) << p.numTS << setw(14) << p.date 
+			<< setw(8) << p.numPPN << setw(12) << p.tag 
+			<< setw(10) << p.sum << setw(4) << p.plata << endl;
 	}
-	fout.close();
 }
 
 inline void BasePDR::load()
 {
-	ifstream fin("Base.bin", ios::binary | ios::in);
-	if (fin.is_open())
+	ifstream in("Base.bin", ios::binary | ios::in);
+	if (in.is_open())
 	{
 		Protocol* prot = new Protocol;
 		int length;
-		fin.read((char*)&length, sizeof(int));
+		in.read((char*)&length, sizeof(int));
 		while (length != 0)
 		{
-			fin.read((char*)&prot, sizeof(Protocol));
+			in.read((char*)&prot, sizeof(Protocol));
 			this->protocols.push_back(prot);
 			this->baseTS.push(prot->getNumTS(), this->protocols);
 			length--;
 		}
 
 	}
-	fin.close();
+	in.close();
 }

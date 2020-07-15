@@ -161,7 +161,7 @@ if (in.is_open())
 }
 l.print();*/
 
-List<int, 100> l;;
+//List<int, 100> l;;
 //char b[80];
 //ifstream in;
 //in.open("test.txt");

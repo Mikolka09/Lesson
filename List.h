@@ -230,11 +230,11 @@ namespace myWorks
 		inline T List<T, size>::pop_at(int pos)
 		{
 			if (pos == 0)
-				pop_front();
+				return pop_front();
 			else
 			{
 				if (pos == length - 1)
-					pop_back();
+					return pop_back();
 				else
 				{
 					MyData<T>* temp = first;
@@ -682,11 +682,11 @@ namespace myWorks
 			if (length)
 			{
 				if (pos == 0)
-					pop_front();
+					return pop_front();
 				else
 				{
 					if (pos == length - 1)
-						pop_back();
+						return pop_back();
 					else
 					{
 						T val;

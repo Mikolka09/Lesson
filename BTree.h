@@ -41,7 +41,8 @@ namespace myWorks
 			}
 
 		};
-
+	}
+	using namespace myBtreeNode;
 		namespace myBtree
 		{
 
@@ -149,8 +150,8 @@ namespace myWorks
 
 		
 
-	}
+}
 
 	
 
-}
+

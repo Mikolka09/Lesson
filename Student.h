@@ -17,6 +17,9 @@ public:
 	~Student();
 	void print();
 	char* getName();
+	void setName(char* n) {
+		m_name = n;
+	}
 };
 
 Student::Student() : Student("No name") {}
