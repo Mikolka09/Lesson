@@ -119,9 +119,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Alives.h" />
+    <ClInclude Include="Warrior.h" />
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="BasePDR.h" />

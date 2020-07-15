@@ -38,14 +38,14 @@ using namespace myWorks::myList;
 
 int main()
 {
-
+	srand(time(0));
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
 
-	BasePDR b;
-	b.menu();
+	/*BasePDR b;
+	b.menu();*/
 
 	/*List<int, 100> l;
 	char b[80];

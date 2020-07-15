@@ -18,6 +18,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Заголовочные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Apple.h">
@@ -122,7 +125,7 @@
     <ClInclude Include="Deads.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="Alives.h">
+    <ClInclude Include="Warrior.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
   </ItemGroup>

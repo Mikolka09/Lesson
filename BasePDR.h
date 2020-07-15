@@ -45,13 +45,15 @@ public:
 
 ostream& operator<<(ostream& out, const Protocol& p)
 {
-	out << setw(10) << p.numTS << setw(14) << p.date << setw(8) << p.numPPN << setw(12) << p.tag << setw(10) << p.sum << setw(4) << p.plata << endl;
+	out << setw(10) << p.numTS << setw(14) << p.date << setw(8) << p.numPPN << setw(12) 
+		<< p.tag << setw(10) << p.sum << setw(4) << p.plata << endl;
 	return out;
 }
 
 ostream& operator<<(ostream& out, const Protocol* p)
 {
-	out << setw(10) << p->numTS << setw(14) << p->date << setw(8) << p->numPPN << setw(12) << p->tag << setw(10) << p->sum << setw(4) << p->plata << endl;
+	out << setw(10) << p->numTS << setw(14) << p->date << setw(8) << p->numPPN << setw(12) 
+		<< p->tag << setw(10) << p->sum << setw(4) << p->plata << endl;
 	return out;
 }
 

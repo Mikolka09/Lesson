@@ -87,11 +87,7 @@ namespace myWorks
 				clear();
 			}
 			MyData<T>* first = obj.first;
-			if (!first)
-				throw MyListException::NULLPTR;
 			MyData<T>* last = obj.last;
-			if (!last)
-				throw MyListException::NULLPTR;
 			int length = obj.length;
 			for (size_t i = 0; i < length; i++)
 			{
@@ -174,8 +170,6 @@ namespace myWorks
 							throw MyListException::NULLPTR;
 						temp->value = val;
 						MyData<T>* num = first;
-						if (!num)
-							throw MyListException::NULLPTR;
 						for (size_t i = 0; i < pos - 1; i++)
 						{
 							num = num->next;
@@ -196,8 +190,6 @@ namespace myWorks
 			if (length)
 			{
 				MyData<T>* temp = first;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				first = first->next;
 				T val = temp->value;
 				delete temp;
@@ -212,8 +204,6 @@ namespace myWorks
 		inline T List<T, size>::pop_back()
 		{
 			MyData<T>* temp = first;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			T val = last->value;
 			for (size_t i = 0; i < length - 2; i++)
 			{
@@ -238,15 +228,11 @@ namespace myWorks
 				else
 				{
 					MyData<T>* temp = first;
-					if (!temp)
-						throw MyListException::NULLPTR;
 					for (size_t i = 0; i < pos - 1; i++)
 					{
 						temp = temp->next;
 					}
 					MyData<T>* num = temp->next;
-					if (!num)
-						throw MyListException::NULLPTR;
 					T val = num->value;
 					temp->next = num->next;
 					delete num;
@@ -263,8 +249,6 @@ namespace myWorks
 			if (pos >= 0 && pos < length)
 				throw MyListException::INVALID_INDEX;
 			MyData<T>* temp = first;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			for (size_t i = 0; i < pos; i++)
 			{
 				temp = temp->next;
@@ -292,8 +276,6 @@ namespace myWorks
 			{
 				throw MyListException::INVALID_INDEX;
 				MyData<T>* temp = first;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				for (size_t i = 0; i < pos; i++)
 				{
 					temp = temp->next;
@@ -329,8 +311,6 @@ namespace myWorks
 				throw MyListException::SIZE_EMPTY;
 			}
 			MyData<T>* temp = first;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			while (temp)
 			{
 				cout << temp->value << " ";
@@ -371,11 +351,7 @@ namespace myWorks
 			if (!newL)
 				throw MyListException::NULLPTR;
 			MyData<T>* temp = this->first;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			MyData<T>* temp1 = l.first;
-			if (!temp1)
-				throw MyListException::NULLPTR;
 			for (size_t i = 0; i < this->length; i++)
 			{
 				newL.push_back(temp->value);
@@ -400,11 +376,7 @@ namespace myWorks
 				clear();
 			}
 			MyData<T>* first = obj.first;
-			if (!first)
-				throw MyListException::NULLPTR;
 			MyData<T>* last = obj.last;
-			if (!last)
-				throw MyListException::NULLPTR;
 			int length = obj.length;
 			for (size_t i = 0; i < length; i++)
 			{
@@ -605,8 +577,6 @@ namespace myWorks
 							throw MyListException::NULLPTR;
 						temp->value = val;
 						MyData<T>* num;
-						if (!num)
-							throw MyListException::NULLPTR;
 						if (pos <= length / 2)
 						{
 							num = first;
@@ -643,8 +613,6 @@ namespace myWorks
 			if (length)
 			{
 				MyData<T>* temp = first;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				T val = first->value;
 				if (length > 1)
 					first->next->prev = nullptr;
@@ -663,8 +631,6 @@ namespace myWorks
 			if (length)
 			{
 				MyData<T>* temp = last;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				T val = last->value;
 				last->prev->next = nullptr;
 				last = last->prev;
@@ -691,8 +657,6 @@ namespace myWorks
 					{
 						T val;
 						MyData<T>* num, * temp;
-						if (!num)
-							throw MyListException::NULLPTR;
 						if (pos <= length / 2)
 						{
 							num = first;
@@ -730,8 +694,6 @@ namespace myWorks
 			{
 				throw MyListException::INVALID_INDEX;
 				MyData<T>* temp = first;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				for (size_t i = 0; i < pos; i++)
 				{
 					temp = temp->next;
@@ -760,8 +722,6 @@ namespace myWorks
 			{
 				throw MyListException::INVALID_INDEX;
 				MyData<T>* temp = first;
-				if (!temp)
-					throw MyListException::NULLPTR;
 				for (size_t i = 0; i < pos; i++)
 				{
 					temp = temp->next;
@@ -797,8 +757,6 @@ namespace myWorks
 				throw MyListException::SIZE_EMPTY;
 			}
 			MyData<T>* temp = first;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			while (temp)
 			{
 				cout << temp->value << " ";
@@ -815,8 +773,6 @@ namespace myWorks
 				throw MyListException::SIZE_EMPTY;
 			}
 			MyData<T>* temp = last;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			while (temp)
 			{
 				cout << temp->value << " ";
@@ -840,8 +796,6 @@ namespace myWorks
 		inline ForwardList<T, size> ForwardList<T, size>::operator+(const ForwardList<T, size>& l)
 		{
 			MyData<T>* temp = last;
-			if (!temp)
-				throw MyListException::NULLPTR;
 			this->last->next = l.first;
 			l.first->prev = temp;
 			this->last = l.last;
