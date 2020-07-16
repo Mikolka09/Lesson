@@ -5,7 +5,7 @@
 //#include"MyString.h"
 //#include"MyClass.h"
 //#include"Array1D.h"
-//#include"Point.h"
+#include"Point.h"
 //#include"Apple.h"
 //#include"Time.h"
 //#include"Progress.h"
@@ -16,9 +16,9 @@
 //#include"Stack.h"
 //#include"Queue.h"
 #include"List.h"
-#include"BTree.h"
+//#include"BTree.h"
 //#include"PrintServer.h"
-#include"BasePDR.h"
+//#include"BasePDR.h"
 //#include"Car.h"
 //#include"Inheritance.h"
 //#include"A.h"
@@ -30,19 +30,139 @@
 //#include"Boo.h"
 #include"Drob.h"
 #include"Student.h"
+#include"Pointer.h"
+#include<memory>
 
 using namespace std;
 
 using namespace myWorks::myDrob;
 using namespace myWorks::myList;
 
+
+void doo()
+{
+
+	SmartPointer<Point> p(new Point(2, 3));
+	p->print();
+	int n;
+	cin >> n;
+	if (n == 0)
+		return;
+
+
+}
+
+void printArr(int *a, int &n)
+{
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << a[i] << " ";
+	}
+
+}
+
+int printArr(int *a, int &&n)
+{
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << a[i] << " ";
+	}
+	cout << endl;
+	n++;
+	//cout << n << endl;
+	return n;
+}
+
+template<class T>
+void _swap(T& a, T& b )
+{
+	T temp{ move(a) };
+	a = movi(b);
+	b = move (temp);
+}
+
+template<class T>
+void __swap(T& a, T& b)
+{
+	T temp = a;
+	a = b;
+	b = temp;
+}
+
+
+SmartPointer<Point>doo1()
+{
+	SmartPointer<Point> p(new Point);
+	return p;
+}
+
+
 int main()
 {
-	srand(time(0));
+	//srand(time(0));
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
+	
+	
 
+	/*const int n = 10000;
+	int a[n];
+	for (size_t i = 0; i < n; i++)
+	{
+		a[i] = rand();
+	}
+
+	for (size_t i = 0; i < n-1; i++)
+	{
+		for (size_t j = 0; j < n-1-i; j++)
+		{
+			if (a[i] > a[i + 1])
+				__swap(a[i], a[i + 1]);
+		}
+	}*/
+
+
+	unique_ptr<Point> u = make_unique<Point>(2, 5);
+	unique_ptr<Point> u2;
+
+	cout << (bool)u << endl;
+	cout << (bool)u2 << endl;
+	
+	u2 = move(u);
+
+	cout << (bool)u << endl;
+	cout << (bool)u2 << endl;
+
+	Point *pp = new Point;
+	shared_ptr<Point> p1(pp);
+	{
+		shared_ptr<Point> p2(p1);
+	}
+
+	/*int a[5] = { 2, 3, 5, 4, 6 };
+	int&& k = printArr(a, 5);
+	cout << k << endl;
+
+	int n = 5;
+	int & r = n;
+	int && r2 = 8;*/
+
+
+	/*SmartPointer<Point> p1;
+	p1 = doo1();*/
+
+	/*SmartPointer<Point> p1(new Point(2, 3));
+	SmartPointer<Point> p2(p1);
+	p2->print();*/
+
+	//p1->print();
+
+	//SmartPointer<Point> p2=doo1();
+
+	//auto_ptr<Point>p3(new Point);
+
+	//doo1();
 
 	/*BasePDR b;
 	b.menu();*/
@@ -82,40 +202,40 @@ int main()
 		cout << "error" << endl;*/
 
 
-	/*Student st(16, "Ivanov");
-	st.print();
+		/*Student st(16, "Ivanov");
+		st.print();
 
-	ofstream out("stud.bin", ios::binary);
-	out.write((char*)&st, sizeof(Student));
-	int l = strlen(st.getName());
-	out.write((char*)&l, sizeof(int));
-	out.write((char*)st.getName(), l);
-	out.close();*/
+		ofstream out("stud.bin", ios::binary);
+		out.write((char*)&st, sizeof(Student));
+		int l = strlen(st.getName());
+		out.write((char*)&l, sizeof(int));
+		out.write((char*)st.getName(), l);
+		out.close();*/
 
-	/*Student st1;
-	ifstream in("stud.bin", ios::binary);
-	in.read((char*)&st1, sizeof(Student));
-	int l;
-	in.read((char*)&l, sizeof(int));
-	char* n = new char[l + 1];
-	in.read((char*)n, l);
-	n[l] = '\0';
-	st1.setName(n);
-	st1.print();*/
+		/*Student st1;
+		ifstream in("stud.bin", ios::binary);
+		in.read((char*)&st1, sizeof(Student));
+		int l;
+		in.read((char*)&l, sizeof(int));
+		char* n = new char[l + 1];
+		in.read((char*)n, l);
+		n[l] = '\0';
+		st1.setName(n);
+		st1.print();*/
 
 
-	/*myArray1D::Array1D<int> arr(10);
-	myArray2D::Array2D<int> arr2(10,10);
-	myBtreeNode::BTreeNode<string, myList::List<int, 100>>;
-	myDrob::Drob d(1, 2, 3);
-	myList::List<int, 100> l;
-	myString::MyString st;
-	myBitString::BitMyString str;
-	myQueue::Queue<int, 10> q;
-	myRingQueue::RingQueue<int, 10> r;
-	myPrioretyQueue::PrioretyQueue<int, 20> p;
-	myStaticStack::StaticStack<int,10> stk;
-	myDynamicStack::DynamicStack<int, 20> dt;*/
+		/*myArray1D::Array1D<int> arr(10);
+		myArray2D::Array2D<int> arr2(10,10);
+		myBtreeNode::BTreeNode<string, myList::List<int, 100>>;
+		myDrob::Drob d(1, 2, 3);
+		myList::List<int, 100> l;
+		myString::MyString st;
+		myBitString::BitMyString str;
+		myQueue::Queue<int, 10> q;
+		myRingQueue::RingQueue<int, 10> r;
+		myPrioretyQueue::PrioretyQueue<int, 20> p;
+		myStaticStack::StaticStack<int,10> stk;
+		myDynamicStack::DynamicStack<int, 20> dt;*/
 
 
 

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include<fstream>
 using namespace std;
 
 class Point
@@ -9,12 +10,12 @@ class Point
 public:
 	Point() :Point(0, 0) {}
 	explicit Point(int x) :m_x(x), m_y(0) {}
-	Point(int x, int y) :m_x(x), m_y(y) { /*cout << "Constructor" << endl;*/ }
+	Point(int x, int y) :m_x(x), m_y(y) { cout << "Constructor" << endl;}
 
 	~Point() // деструктор
 	{
 		//print();
-		//cout << "Destructor" << endl;
+		cout << "Destructor" << endl;
 	}
 
 	void setCoord(int x, int y)
@@ -126,14 +127,14 @@ inline void Rectangle::operator()(int x1, int y1, int x2, int y2)
 
 
 
-int a[5] = { 1,2,3,4,5 };
-ofstream out;
-out.open("test.txt");
-for (size_t i = 0; i < 5; i++)
-{
-	out << a[i] << " ";
-}
-out.close();
+//int a[5] = { 1,2,3,4,5 };
+//ofstream out;
+//out.open("test.txt");
+//for (size_t i = 0; i < 5; i++)
+//{
+//	out << a[i] << " ";
+//}
+//out.close();
 
 /*int b[5];
 ifstream in;

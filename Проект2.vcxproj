@@ -122,6 +122,8 @@
     <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pointer.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Warrior.h" />
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Array2D.h" />

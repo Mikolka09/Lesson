@@ -8,6 +8,8 @@ ostream& operator<<(ostream& out, const Race& r)
 {
 	out << setw(8) << r.type << setw(10) << "Life: " << r.life << setw(12) << "Damage: "
 		<< r.damage << setw(10) << "Speed: " << r.speed << setw(10) << "Gold: " << r.gold << endl;
+
+	return out;
 }
 
 War::War()
