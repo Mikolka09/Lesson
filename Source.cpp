@@ -32,6 +32,7 @@
 #include"Student.h"
 #include"Pointer.h"
 #include<memory>
+#include"Races.h"
 
 using namespace std;
 
@@ -99,11 +100,13 @@ SmartPointer<Point>doo1()
 
 int main()
 {
-	//srand(time(0));
+	srand(time(0));
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 	
+	War w;
+	w.the_fight();
 	
 
 	/*const int n = 10000;
@@ -123,7 +126,7 @@ int main()
 	}*/
 
 
-	unique_ptr<Point> u = make_unique<Point>(2, 5);
+	/*unique_ptr<Point> u = make_unique<Point>(2, 5);
 	unique_ptr<Point> u2;
 
 	cout << (bool)u << endl;
@@ -138,7 +141,7 @@ int main()
 	shared_ptr<Point> p1(pp);
 	{
 		shared_ptr<Point> p2(p1);
-	}
+	}*/
 
 	/*int a[5] = { 2, 3, 5, 4, 6 };
 	int&& k = printArr(a, 5);

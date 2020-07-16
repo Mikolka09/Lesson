@@ -119,12 +119,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Warrior.cpp" />
+    <ClCompile Include="Races.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pointer.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Warrior.h" />
+    <ClInclude Include="Races.h" />
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="BasePDR.h" />

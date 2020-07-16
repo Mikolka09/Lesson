@@ -18,7 +18,7 @@
     <ClCompile Include="Source.cpp">
       <Filter>Заголовочные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Warrior.cpp">
+    <ClCompile Include="Races.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,13 +125,13 @@
     <ClInclude Include="Deads.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>Файлы исходного кода</Filter>
-    </ClInclude>
     <ClInclude Include="Pointer.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
+    <ClInclude Include="Races.h">
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
   </ItemGroup>
