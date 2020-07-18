@@ -61,7 +61,7 @@ War::War()
 
 void War::the_fight()
 {
-	string S(80, '-');
+	string S(66, '-');
 	system("cls");
 	cout << "\t\t\tFIGHT!!!" << endl;
 	cout << S << endl;
@@ -79,6 +79,7 @@ void War::the_fight()
 		cout << "FROM HUMANS: " << nHum << endl;
 		cout << S << endl << endl;
 		cout << "FROM MONSTERS: " << nMon << endl;
+		int f = 0;
 		cout << S << endl << endl;
 		while (nHum.getLife() > 0 && nMon.getLife() > 0)
 		{
@@ -88,19 +89,21 @@ void War::the_fight()
 			{
 				cout << "First: " << nHum.getType() << endl;
 				nHum.attack(nMon);
+				f = 1;
 			}
 			else
 			{
 				cout << "First: " << nMon.getType() << endl;
 				nMon.attack(nHum);
+				f = 2;
 
 			}
-			if (nMon.getLife() > 0)
+			if (f == 1 && nMon.getLife() > 0)
 			{
 				cout << "Second: " << nMon.getType() << endl;
 				nMon.attack(nHum);
 			}
-			else
+			else if (f == 2 && nHum.getLife() > 0)
 			{
 				cout << "Second: " << nHum.getType() << endl;
 				nHum.attack(nMon);
@@ -108,29 +111,31 @@ void War::the_fight()
 		}
 		cout << S << endl << endl;
 		cout << "WINNER BATTLE: " << endl;
-		if (nHum.getLife() == 0)
+		if (nHum.getLife() <= 0)
 		{
 			cout << "Winner - " << nMon.getType() << endl;
 			gold = nMon.getGold() + nHum.getGold();
 			nMon.setGold(gold);
 			monsters.push_back(nMon);
+			cout << S << endl << endl;
 		}
-		else if (nMon.getLife() == 0)
+		else if (nMon.getLife() <= 0)
 		{
 			cout << "Winner - " << nHum.getType() << endl;
 			gold = nHum.getGold() + nMon.getGold();
 			nHum.setGold(gold);
 			humans.push_back(nHum);
+			cout << S << endl << endl;
 		}
 	}
-	//print();
+	print();
 	cout << S << endl << endl;
-	if (humans.ifEmpty() == 0)
-		cout << "THE MONSTERS WON THE BATTLE !!!" << endl << endl;
-	else if (monsters.ifEmpty() == 0)
-		cout << "THE HUMANS WON THE BATTLE !!!" << endl << endl;
+	if (humans.ifEmpty())
+		cout << "\t\tTHE MONSTERS WON THE BATTLE !!!" << endl << endl;
+	else if (monsters.ifEmpty())
+		cout << "\t\tTHE HUMANS WON THE BATTLE !!!" << endl << endl;
 	cout << S << endl << endl;
-	cout << "END FIGHT!!!" << endl << endl;
+	cout << "\t\t\tEND FIGHT!!!" << endl << endl;
 }
 
 
@@ -139,11 +144,11 @@ void War::print()
 	system("cls");
 	string S(60, '-');
 	cout << "HUMANS:\n" << endl;
-	if (humans.ifEmpty() != 0)
+	if (humans.getSize() != 0)
 		humans.print();
 	cout << S << endl << endl;
 	cout << "MONSTERS:\n" << endl;
-	if (monsters.ifEmpty() != 0)
+	if (monsters.getSize() != 0)
 		monsters.print();
 	cout << S << endl << endl;
 }
