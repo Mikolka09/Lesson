@@ -289,7 +289,7 @@ inline void BasePDR::save()
 
 inline void BasePDR::load()
 {
-	ifstream in("Base.bin", ios::in);
+	ifstream in("Base.bin", ios::binary | ios::in);
 	if (in.is_open())
 	{
 		int length;
