@@ -5,7 +5,7 @@
 //#include"MyString.h"
 //#include"MyClass.h"
 //#include"Array1D.h"
-#include"Point.h"
+//#include"Point.h"
 //#include"Apple.h"
 //#include"Time.h"
 //#include"Progress.h"
@@ -16,9 +16,9 @@
 //#include"Stack.h"
 //#include"Queue.h"
 #include"List.h"
-//#include"BTree.h"
+#include"BTree.h"
 //#include"PrintServer.h"
-//#include"BasePDR.h"
+#include"BasePDR.h"
 //#include"Car.h"
 //#include"Inheritance.h"
 //#include"A.h"
@@ -28,74 +28,74 @@
 //#include"MyException.h"
 //#include"Foo.h"
 //#include"Boo.h"
-#include"Drob.h"
-#include"Student.h"
-#include"Pointer.h"
-#include<memory>
-#include"Races.h"
+//#include"Drob.h"
+//#include"Student.h"
+//#include"Pointer.h"
+//#include<memory>
+//#include"Races.h"
 
 using namespace std;
 
-using namespace myWorks::myDrob;
+//using namespace myWorks::myDrob;
 using namespace myWorks::myList;
 
 
-void doo()
-{
+//void doo()
+//{
+//
+//	SmartPointer<Point> p(new Point(2, 3));
+//	p->print();
+//	int n;
+//	cin >> n;
+//	if (n == 0)
+//		return;
+//
+//
+//}
 
-	SmartPointer<Point> p(new Point(2, 3));
-	p->print();
-	int n;
-	cin >> n;
-	if (n == 0)
-		return;
+//void printArr(int *a, int &n)
+//{
+//	for (size_t i = 0; i < n; i++)
+//	{
+//		cout << a[i] << " ";
+//	}
+//
+//}
+//
+//int printArr(int *a, int &&n)
+//{
+//	for (size_t i = 0; i < n; i++)
+//	{
+//		cout << a[i] << " ";
+//	}
+//	cout << endl;
+//	n++;
+//	//cout << n << endl;
+//	return n;
+//}
+//
+//template<class T>
+//void _swap(T& a, T& b )
+//{
+//	T temp{ move(a) };
+//	a = movi(b);
+//	b = move (temp);
+//}
+//
+//template<class T>
+//void __swap(T& a, T& b)
+//{
+//	T temp = a;
+//	a = b;
+//	b = temp;
+//}
 
 
-}
-
-void printArr(int *a, int &n)
-{
-	for (size_t i = 0; i < n; i++)
-	{
-		cout << a[i] << " ";
-	}
-
-}
-
-int printArr(int *a, int &&n)
-{
-	for (size_t i = 0; i < n; i++)
-	{
-		cout << a[i] << " ";
-	}
-	cout << endl;
-	n++;
-	//cout << n << endl;
-	return n;
-}
-
-template<class T>
-void _swap(T& a, T& b )
-{
-	T temp{ move(a) };
-	a = movi(b);
-	b = move (temp);
-}
-
-template<class T>
-void __swap(T& a, T& b)
-{
-	T temp = a;
-	a = b;
-	b = temp;
-}
-
-
-SmartPointer<Point>doo1()
-{
-	SmartPointer<Point> p(new Point);
-	return p;
-}
+//SmartPointer<Point>doo1()
+//{
+//	SmartPointer<Point> p(new Point);
+//	return p;
+//}
 
 
 int main()
@@ -105,9 +105,9 @@ int main()
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 	
-	War w;
-	w.the_fight();
 	
+	BasePDR b;
+	b.menu();
 
 	/*const int n = 10000;
 	int a[n];
@@ -167,8 +167,7 @@ int main()
 
 	//doo1();
 
-	/*BasePDR b;
-	b.menu();*/
+	
 
 	/*List<int, 100> l;
 	char b[80];
