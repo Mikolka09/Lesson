@@ -28,15 +28,20 @@
 //#include"MyException.h"
 //#include"Foo.h"
 //#include"Boo.h"
-//#include"Drob.h"
+#include"Drob.h"
 //#include"Student.h"
 //#include"Pointer.h"
 //#include<memory>
 //#include"Races.h"
+#include<vector>
+#include<iterator>
+#include<algorithm>
+#include<list>
+#include<map>
 
 using namespace std;
 
-//using namespace myWorks::myDrob;
+using namespace myWorks::myDrob;
 using namespace myWorks::myList;
 
 
@@ -97,6 +102,11 @@ using namespace myWorks::myList;
 //	return p;
 //}
 
+bool is0(int v) {
+	if (v == 0)
+		return true;
+	return false;
+}
 
 int main()
 {
@@ -104,10 +114,148 @@ int main()
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 	setlocale(0, "");
-	
-	
-	BasePDR b;
-	b.menu();
+
+	//АСИЦИАТИВНЫЙ МАССИВ (КЛЮЧ, ЗНАЧЕНИЕ)/////////////////////
+	map<string, int> m1;
+	pair<string, int> p1("vvvaaa", 4);
+	m1.insert(p1);
+	m1.insert(make_pair("jjjj", 5));
+
+	for (auto&x : m1)
+		cout << x.first << " " << x.second << endl;
+
+	cout << m1["jjjj"] << endl;
+	m1["jjjj"] = 22;
+
+	cout << m1.count("jjjj") << endl;//возвращает есть ли такой ключ
+
+	auto it = m1.find("jjjj");
+	if (it != m1.end())
+		it->second = 66;
+
+
+
+
+
+	//СПИСКИ//////////////////////////////////////////////////////
+	//list<int>l1;
+	//l1.push_back(10);
+	//l1.push_back(15);
+	//l1.push_back(20);
+	//l1.push_back(16);
+	//l1.push_back(11);
+	//l1.push_back(20);
+	//l1.push_back(20);
+	//list<int> l2;
+	//l2.push_back(12);
+	//l2.push_back(10);
+	//l2.push_back(13);
+	//l2.push_back(14);
+
+
+	//copy(l1.begin(), l1.end(), ostream_iterator<int>(cout, " "));
+	//cout << endl;
+
+	////l1.insert(find(++l1.begin(), l1.end(), 20), 100);//работает только инкремент и дикремент
+	//auto it = l1.begin();
+	//advance(it, 2);
+	//l1.insert(it, 100);
+
+	//for (auto&l:l1)
+	//	cout << l << " ";
+	//cout << endl;
+
+	//l1.erase(it);//удаляет по итератору
+
+	//for (auto&l : l1)
+	//	cout << l << " ";
+	//cout << endl;
+
+	//l1.remove(100);//удаляет по значению
+
+	//for (auto&l : l1)
+	//	cout << l << " ";
+	//cout << endl;
+
+	//l1.unique();
+
+	//for (auto&l : l1)
+	//	cout << l << " ";
+	//cout << endl;
+
+	//l1.reverse();
+
+	//for (auto&l : l1)
+	//	cout << l << " ";
+	//cout << endl;
+
+	//cout << l1.size() << endl;
+	//cout << l1.max_size() << endl;
+	/////////////////////////////////////////////////////////////////////////
+
+	//ВЕКТОР////////////////////////////////////////////////////////////////////////////////////
+	//vector<int> v1(15);
+	//for (size_t i = 0; i < v1.size(); i++)
+	//{
+	//	v1[i] = rand() % 20 + 10;
+	//}
+	//cout << endl;
+
+
+	//for (size_t i = 0; i < v1.size(); i++)
+	//{
+	//	cout << v1[i] << " ";
+	//}
+	//cout << endl;
+
+	////v1.assign(2, 5);//переопределения размера и новых значений
+	////v1.insert(v1.begin() + 2, 1000);//вставить в произвольную позицию
+
+
+	////v1.erase(v1.begin() + 2);
+
+
+	//
+	//*auto it2=v1.begin();
+	//while ((it2 = find_if(v1.begin(), v1.end(), is0)) != v1.end())
+	//{
+	//	v1.erase(it2);
+	//}*/
+	//
+	//sort(v1.begin(), v1.end());
+
+	//for (auto&x : v1)
+	//	cout << x << " ";
+	//cout << endl;
+
+	//random_shuffle(v1.begin(), v1.end());//перемешивает данные
+
+	//copy(v1.begin(), v1.end(), ostream_iterator<int>(cout, " "));
+	//cout << endl;
+
+	//vector<Drob> v1;
+
+	/*v1.push_back(Drob(0, 2, 3));
+	v1.push_back(Drob(1, 5, 3));
+	v1.push_back(Drob(4, 2, 5));
+	v1.push_back(Drob(0, 4, 3));
+
+	for (size_t i = 0; i < v1.size(); i++)
+	{
+		cout << v1[i] << " ";
+	}
+	cout << endl;*/
+
+	//vector<int>::iterator it = v1.begin();
+	//for (it; it < v1.end(); ++it)
+	//	cout << *it << " ";
+	//cout << endl;
+
+	//cout << v1.size() << endl;//количесвто заполненных элемонтов вектора
+	//cout << v1.capacity() << endl;//сколько можно еще положить элементов без выделения памяти
+	//cout << v1.max_size() << endl;//сколько элементов можно запичасть элементов
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	/*const int n = 10000;
 	int a[n];
@@ -131,7 +279,7 @@ int main()
 
 	cout << (bool)u << endl;
 	cout << (bool)u2 << endl;
-	
+
 	u2 = move(u);
 
 	cout << (bool)u << endl;
@@ -167,7 +315,7 @@ int main()
 
 	//doo1();
 
-	
+
 
 	/*List<int, 100> l;
 	char b[80];

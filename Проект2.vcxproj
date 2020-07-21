@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pointer.h" />
+    <ClInclude Include="SmartPtr.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Races.h" />
     <ClInclude Include="Animal.h" />
