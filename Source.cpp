@@ -38,6 +38,7 @@
 #include<algorithm>
 #include<list>
 #include<map>
+#include<set>
 
 using namespace std;
 
@@ -102,6 +103,27 @@ using namespace myWorks::myList;
 //	return p;
 //}
 
+//template<class T>
+bool MinToMax(int a, int b)
+{
+	return a < b;
+}
+//template<class T>
+bool MaxToMin(int a, int b)
+{
+	return a > b;
+}
+
+//template<class T>
+bool evenFirst(int a, int b)
+{
+	if (a % 2 == 0 && b % 2 == 1)
+		return true;
+	if (a % 2 == 1 && b % 2 == 0)
+		return false;
+	return MinToMax(a, b);
+}
+
 bool is0(int v) {
 	if (v == 0)
 		return true;
@@ -115,23 +137,47 @@ int main()
 	//SetConsoleCP(1251);
 	setlocale(0, "");
 
+
+	int a[10] = { 1,2,3,4,6,8,4,7 };
+	sort(a, a + 10, evenFirst);
+
+	for (auto&x : a)
+		cout << x << " ";
+
+
+	/*set<int> s;
+	s.insert(4);
+	s.insert(2);
+	s.insert(3);
+	s.insert(5);
+	s.insert(6);
+
+	for (auto&x : s)
+		cout << x << " ";
+	cout << endl;*/
+
+
+	/*hash<string> t;
+	cout << t("asbfvasd") << endl;*/
+
+
 	//АСИЦИАТИВНЫЙ МАССИВ (КЛЮЧ, ЗНАЧЕНИЕ)/////////////////////
-	map<string, int> m1;
-	pair<string, int> p1("vvvaaa", 4);
-	m1.insert(p1);
-	m1.insert(make_pair("jjjj", 5));
+	//map<string, int> m1;
+	//pair<string, int> p1("vvvaaa", 4);
+	//m1.insert(p1);
+	//m1.insert(make_pair("jjjj", 5));
 
-	for (auto&x : m1)
-		cout << x.first << " " << x.second << endl;
+	//for (auto&x : m1)
+	//	cout << x.first << " " << x.second << endl;
 
-	cout << m1["jjjj"] << endl;
-	m1["jjjj"] = 22;
+	//cout << m1["jjjj"] << endl;
+	//m1["jjjj"] = 22;
 
-	cout << m1.count("jjjj") << endl;//возвращает есть ли такой ключ
+	//cout << m1.count("jjjj") << endl;//возвращает есть ли такой ключ
 
-	auto it = m1.find("jjjj");
-	if (it != m1.end())
-		it->second = 66;
+	//auto it = m1.find("jjjj");
+	//if (it != m1.end())
+	//	it->second = 66;
 
 
 
