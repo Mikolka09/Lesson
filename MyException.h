@@ -12,6 +12,7 @@ class MyException
 protected:
 	ERRORS error_;
 public:
+	
 	MyException (ERRORS e):error_(e){}
 
 	enum ERRORS
@@ -82,7 +83,7 @@ public:
 
 };
 
-class MyStackException :MyException
+class MyStackException : public MyException
 {
 public:
 	string get_error()

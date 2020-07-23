@@ -142,8 +142,6 @@ namespace myWorks
 		{
 			T val = data->value;
 			MyData<T>* temp = data;
-			if (!temp)
-				throw MyStackException::NULLPTR;
 			data = data->next;
 			delete temp;
 			top--;
@@ -158,8 +156,6 @@ namespace myWorks
 				throw MyStackException::SIZE_EMPTY;
 			}
 			MyData<T>* temp = data;
-			if (!temp)
-				throw MyStackException::NULLPTR;
 			while (temp)
 			{
 				cout << temp->value << " ";
@@ -199,8 +195,6 @@ namespace myWorks
 		inline void DynamicStack<T, size>::clear()
 		{
 			MyData<T>* temp = data;
-			if (!temp)
-				throw MyStackException::NULLPTR;
 			while (data)
 			{
 				data = temp->next;
@@ -208,7 +202,7 @@ namespace myWorks
 				temp = data;
 				top--;
 			}
-			cout << "Stack cleared!" << endl;
+			//cout << "Stack cleared!" << endl;
 		}
 		template<class T, int size>
 		inline int DynamicStack<T, size>::getSize()
